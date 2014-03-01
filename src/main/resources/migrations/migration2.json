@@ -1,0 +1,203 @@
+{
+    "topics": [
+
+        # Kategorien
+
+        {
+            "value":    "Ausbildung und Arbeit",
+            "uri":      "ka2.category.ausbildung_und_arbeit",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Beratung",
+            "uri":      "ka2.category.beratung",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Familie",
+            "uri":      "ka2.category.familie",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Frauen",
+            "uri":      "ka2.category.frauen",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Gesundheit und Behinderung",
+            "uri":      "ka2.category.gesundheit_und_behinderung",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Jugendamt",
+            "uri":      "ka2.category.jugendamt",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Kinder- und Jugendfreizeit",
+            "uri":      "ka2.category.kinder_und_jugendfreizeit",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Kinderbetreuung",
+            "uri":      "ka2.category.kinderbetreuung",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Kultur und Bildung",
+            "uri":      "ka2.category.kultur_und_bildung",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Nachbarschaftstreffpunkte und Stadtteilarbeit",
+            "uri":      "ka2.category.nachbarschaftstreffpunkte_und_stadtteilarbeit",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Netzwerk",
+            "uri":      "ka2.category.netzwerk",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Not",
+            "uri":      "ka2.category.not",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Schule",
+            "uri":      "ka2.category.schule",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "SeniorInnen",
+            "uri":      "ka2.category.seniorinnen",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Sport",
+            "uri":      "ka2.category.sport",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Wohnung + Unterkunft",
+            "uri":      "ka2.category.wohnung_und_unterkunft",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+
+        # Angebote
+
+        {
+            "value":    "Angebote f\u00fcr Menschen mit Behinderung",
+            "uri":      "ka2.category.angebote_fuer_menschen_mit_behinderung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Beratungsangebote",
+            "uri":      "ka2.category.beratungsangebote",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Erziehungs- und Familienberatung",
+            "uri":      "ka2.category.erziehungs_und_familienberatung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Frauenprojekte",
+            "uri":      "ka2.category.frauenprojekte",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Grundschulen",
+            "uri":      "ka2.category.grundschulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Hilfen zur Erziehung",
+            "uri":      "ka2.category.hilfen_zur_erziehung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Jugendberatung / Jugendberufshilfe",
+            "uri":      "ka2.category.jugendberatung_und_jugendberufshilfe",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Migration/Integration",
+            "uri":      "ka2.category.migration_und_integration",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Oberschulen",
+            "uri":      "ka2.category.oberschulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Schuldner- und Insolvenzberatung",
+            "uri":      "ka2.category.schuldner_und_insolvenzberatung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Schulpsychologische Beratungsstelle",
+            "uri":      "ka2.category.schulpsychologische_beratungsstelle",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Sonstige Schulen",
+            "uri":      "ka2.category.sonstige_schulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+
+        # Zielgruppen
+
+        {
+            "value":    "Alle Altersgruppen",
+            "uri":      "ka2.category.alle_altersgruppen",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Auszubildende + junge Erwachsene",
+            "uri":      "ka2.category.auszubildende_und_junge_erwachsene",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Erwachsene",
+            "uri":      "ka2.category.erwachsene",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Familien / Alleinerziehende mit Kindern im Schulalter",
+            "uri":      "ka2.category.familien_und_alleinerziehende_mit_kindern_im_schulalter",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Familien / Alleinerziehende mit Kleinkindern",
+            "uri":      "ka2.category.familien_und_alleinerziehende_mit_kleinkindern",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Familien / Alleinerziehende mit S\u00e4uglingen",
+            "uri":      "ka2.category.familien_und_alleinerziehende_mit_saeuglingen",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Frauen",
+            "uri":      "ka2.category.zielgruppe_frauen",   # ka2.category.frauen is used already
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Jugendliche",
+            "uri":      "ka2.category.jugendliche",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Kinder im Schulalter",
+            "uri":      "ka2.category.kinder_im_schulalter",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Sonstige",
+            "uri":      "ka2.category.sonstige",
+            "type_uri": "ka2.criteria.zielgruppe"
+        }
+    ]
+}

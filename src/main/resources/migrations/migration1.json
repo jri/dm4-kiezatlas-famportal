@@ -1,0 +1,67 @@
+{
+    "topic_types": [
+
+        # Kategorie
+
+        {
+            "value":         "Kategorie",
+            "uri":           "ka2.criteria.kategorie",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Kategorie Facet",
+            "uri":           "ka2.criteria.kategorie.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.criteria.kategorie",
+                    "child_cardinality_uri":  "dm4.core.many",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        },
+
+        # Angebot
+
+        {
+            "value":         "Angebot",
+            "uri":           "ka2.criteria.angebot",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Angebot Facet",
+            "uri":           "ka2.criteria.angebot.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.criteria.angebot",
+                    "child_cardinality_uri":  "dm4.core.many",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        },
+
+        # Zielgruppe
+
+        {
+            "value":         "Zielgruppe",
+            "uri":           "ka2.criteria.zielgruppe",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Zielgruppe Facet",
+            "uri":           "ka2.criteria.zielgruppe.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.criteria.zielgruppe",
+                    "child_cardinality_uri":  "dm4.core.many",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        }
+    ]
+}
