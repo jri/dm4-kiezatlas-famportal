@@ -1,0 +1,180 @@
+{
+    "topic_types": [
+
+        # Träger
+
+        {
+            "value":         "Tr\u00e4ger Name",
+            "uri":           "ka2.traeger.name",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Tr\u00e4ger Art",
+            "uri":           "ka2.traeger.art",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Tr\u00e4ger",
+            "uri":           "ka2.traeger",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.traeger.name",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                },
+                {
+                    "child_type_uri":         "ka2.traeger.art",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        },
+        {
+            "value":         "Tr\u00e4ger Facet",
+            "uri":           "ka2.traeger.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.traeger",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+
+        # Öffnungszeiten
+
+        {
+            "value":         "\u00d6ffnungszeiten",
+            "uri":           "ka2.oeffnungszeiten",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "\u00d6ffnungszeiten Facet",
+            "uri":           "ka2.oeffnungszeiten.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.oeffnungszeiten",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+
+        # Kontakt
+
+        {
+            "value":         "Telefon",
+            "uri":           "ka2.kontakt.telefon",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Fax",
+            "uri":           "ka2.kontakt.fax",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Ansprechpartner/in",
+            "uri":           "ka2.kontakt.ansprechpartner",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Email",
+            "uri":           "ka2.kontakt.email",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Kontakt",
+            "uri":           "ka2.kontakt",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.kontakt.telefon",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                },
+                {
+                    "child_type_uri":         "ka2.kontakt.fax",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                },
+                {
+                    "child_type_uri":         "ka2.kontakt.ansprechpartner",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                },
+                {
+                    "child_type_uri":         "ka2.kontakt.email",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+        {
+            "value":         "Kontakt Facet",
+            "uri":           "ka2.kontakt.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.kontakt",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+
+        # Website
+
+        {
+            "value":         "Website Facet",
+            "uri":           "ka2.website.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "dm4.webbrowser.url",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+
+        # Sonstiges
+
+        {
+            "value":         "Sonstiges",
+            "uri":           "ka2.sonstiges",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Sonstiges Facet",
+            "uri":           "ka2.sonstiges.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.sonstiges",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        }
+    ],
+
+    "topics": [
+
+        # Trägerarten
+
+        {
+            "value":    "kommunal",
+            "uri":      "ka2.traeger.art.kommunal",
+            "type_uri": "ka2.traeger.art"
+        },
+        {
+            "value":    "frei",
+            "uri":      "ka2.traeger.art.frei",
+            "type_uri": "ka2.traeger.art"
+        }
+    ]
+}
