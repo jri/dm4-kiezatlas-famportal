@@ -1,3 +1,14 @@
+# Kiezatlas Standard Fassetten
+#   - Träger (Art, Name)
+#   - Öffnungszeiten
+#   - Kontakt (Telefon, Fax, Ansprechpartner, Email)
+#   - Website
+#   - Beschreibung
+#   - Bild
+#   - Sonstiges
+#   - Bezirk
+#   - Bezirksregion
+
 {
     "topic_types": [
 
@@ -141,12 +152,47 @@
             ]
         },
 
+        # Beschreibung
+
+        {
+            "value":         "Beschreibung",
+            "uri":           "ka2.beschreibung",
+            "data_type_uri": "dm4.core.html"
+        },
+        {
+            "value":         "Beschreibung Facet",
+            "uri":           "ka2.beschreibung.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.beschreibung",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+
+        # Bild
+
+        {
+            "value":         "Bild Facet",
+            "uri":           "ka2.bild.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "dm4.files.file",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                }
+            ]
+        },
+
         # Sonstiges
 
         {
             "value":         "Sonstiges",
             "uri":           "ka2.sonstiges",
-            "data_type_uri": "dm4.core.text"
+            "data_type_uri": "dm4.core.html"
         },
         {
             "value":         "Sonstiges Facet",
@@ -159,7 +205,49 @@
                     "assoc_type_uri":         "dm4.core.composition_def"
                 }
             ]
-        }
+        },
+
+        # Bezirk
+
+        {
+            "value":         "Bezirk",
+            "uri":           "ka2.bezirk",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Bezirk Facet",
+            "uri":           "ka2.bezirk.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.bezirk",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        },
+
+        # Bezirksregion
+
+        {
+            "value":         "Bezirksregion",
+            "uri":           "ka2.bezirksregion",
+            "data_type_uri": "dm4.core.text"
+        },
+        {
+            "value":         "Bezirksregion Facet",
+            "uri":           "ka2.bezirksregion.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "ka2.bezirksregion",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        },
     ],
 
     "topics": [
@@ -175,6 +263,67 @@
             "value":    "frei",
             "uri":      "ka2.traeger.art.frei",
             "type_uri": "ka2.traeger.art"
+        },
+
+        # Bezirke
+
+        {
+            "value":    "Mitte",
+            "uri":      "ka2.bezirk.mitte",
+            "type_uri": "ka2.bezirk"
+        },
+
+        # Bezirksregionen
+
+        {
+            "value":    "Alexanderplatz",
+            "uri":      "ka2.bezirksregion.mitte-alexanderplatz",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Brunnenstra\u00dfe Nord",
+            "uri":      "ka2.bezirksregion.mitte-brunnenstrasse-nord",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Brunnenstra\u00dfe S\u00fcd",
+            "uri":      "ka2.bezirksregion.mitte-brunnenstrasse-sued",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Moabit Ost",
+            "uri":      "ka2.bezirksregion.mitte-moabit-ost",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Moabit West",
+            "uri":      "ka2.bezirksregion.mitte-moabit-west",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Osloer Stra\u00dfe",
+            "uri":      "ka2.bezirksregion.mitte-osloer-strasse",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Parkviertel",
+            "uri":      "ka2.bezirksregion.mitte-parkviertel",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Regierungsviertel",
+            "uri":      "ka2.bezirksregion.mitte-regierungsviertel",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Tiergarten S\u00fcd",
+            "uri":      "ka2.bezirksregion.mitte-tiergarten-sued",
+            "type_uri": "ka2.bezirksregion"
+        },
+        {
+            "value":    "Wedding Zentrum",
+            "uri":      "ka2.bezirksregion.mitte-wedding-zentrum",
+            "type_uri": "ka2.bezirksregion"
         }
     ]
 }
