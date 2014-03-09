@@ -324,6 +324,22 @@
             "value":    "Wedding Zentrum",
             "uri":      "ka2.bezirksregion.mitte-wedding-zentrum",
             "type_uri": "ka2.bezirksregion"
+        },
+
+        # Städte
+
+        {
+            "value":    "Berlin",
+            "uri":      "ka2.city.berlin",
+            "type_uri": "dm4.contacts.city"
+        },
+
+        # Länder
+
+        {
+            "value":    "Deutschland",
+            "uri":      "ka2.country.deutschland",
+            "type_uri": "dm4.contacts.country"
         }
     ]
 }
