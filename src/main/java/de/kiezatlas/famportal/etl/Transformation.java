@@ -101,7 +101,7 @@ public class Transformation {
         CATEGORY_MAP.put("t-240087", "ka2.category.kieznahe_mehrgenerationsangebote");                      // FrKr
         CATEGORY_MAP.put("t-240054", "ka2.category.kinder_und_jugendgesundheitsdienste");                   // FrKr
         CATEGORY_MAP.put("t-240095", "ka2.category.kinder_und_jugendnotdienst");                            // FrKr
-        CATEGORY_MAP.put("t-240039", "ka2.category.kinder_und_jugendspychiatrische_beratungsstelle");       // FrKr
+        CATEGORY_MAP.put("t-240039", "ka2.category.kinder_und_jugendspsychiatrische_beratungsstelle");      // FrKr
         CATEGORY_MAP.put("t-240075", "ka2.category.kinderfreizeiteinrichtungen");                           // FrKr
         CATEGORY_MAP.put("t-240077", "ka2.category.kindernotdienst");                                       // FrKr
         CATEGORY_MAP.put("t-240076", "ka2.category.kinderschutzteam");                                      // FrKr

@@ -309,8 +309,8 @@
             "type_uri": "ka2.criteria.angebot"
         },
         {
-            "value":    "Kinder- und Jugendspychiatrische Beratungsstelle",
-            "uri":      "ka2.category.kinder_und_jugendspychiatrische_beratungsstelle",
+            "value":    "Kinder- und Jugendpsychiatrische Beratungsstelle",
+            "uri":      "ka2.category.kinder_und_jugendpsychiatrische_beratungsstelle",
             "type_uri": "ka2.criteria.angebot"
         },
         {

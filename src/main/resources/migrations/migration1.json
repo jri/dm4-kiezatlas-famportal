@@ -6,9 +6,10 @@
         # Kategorie
 
         {
-            "value":         "Kategorie",
-            "uri":           "ka2.criteria.kategorie",
-            "data_type_uri": "dm4.core.text"
+            "value":            "Kategorie",
+            "uri":              "ka2.criteria.kategorie",
+            "data_type_uri":    "dm4.core.text",
+            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"]
         },
         {
             "value":         "Kategorie Facet",
@@ -27,9 +28,10 @@
         # Angebot
 
         {
-            "value":         "Angebot",
-            "uri":           "ka2.criteria.angebot",
-            "data_type_uri": "dm4.core.text"
+            "value":            "Angebot",
+            "uri":              "ka2.criteria.angebot",
+            "data_type_uri":    "dm4.core.text",
+            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"]
         },
         {
             "value":         "Angebot Facet",
@@ -48,9 +50,10 @@
         # Zielgruppe
 
         {
-            "value":         "Zielgruppe",
-            "uri":           "ka2.criteria.zielgruppe",
-            "data_type_uri": "dm4.core.text"
+            "value":            "Zielgruppe",
+            "uri":              "ka2.criteria.zielgruppe",
+            "data_type_uri":    "dm4.core.text",
+            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"]
         },
         {
             "value":         "Zielgruppe Facet",
@@ -69,9 +72,10 @@
         # Überregional
 
         {
-            "value":         "\u00dcberregional",
-            "uri":           "ka2.criteria.ueberregional",
-            "data_type_uri": "dm4.core.text"
+            "value":            "\u00dcberregional",
+            "uri":              "ka2.criteria.ueberregional",
+            "data_type_uri":    "dm4.core.text",
+            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"]
         },
         {
             "value":         "\u00dcberregional Facet",
