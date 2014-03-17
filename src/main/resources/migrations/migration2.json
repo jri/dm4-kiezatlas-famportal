@@ -1,3 +1,5 @@
+# Kiezatkas Kategorien (Topics)
+
 {
     "topics": [
 
@@ -24,13 +26,28 @@
             "type_uri": "ka2.criteria.kategorie"
         },
         {
+            "value":    "Gesundheit",
+            "uri":      "ka2.category.gesundheit",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
             "value":    "Gesundheit und Behinderung",
             "uri":      "ka2.category.gesundheit_und_behinderung",
             "type_uri": "ka2.criteria.kategorie"
         },
         {
+            "value":    "Jugend",
+            "uri":      "ka2.category.jugend",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
             "value":    "Jugendamt",
             "uri":      "ka2.category.jugendamt",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Kinder",
+            "uri":      "ka2.category.kinder",
             "type_uri": "ka2.criteria.kategorie"
         },
         {
@@ -49,6 +66,11 @@
             "type_uri": "ka2.criteria.kategorie"
         },
         {
+            "value":    "Menschen mit Behinderungen",
+            "uri":      "ka2.category.menschen_mit_behinderungen",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
             "value":    "Nachbarschaftstreffpunkte und Stadtteilarbeit",
             "uri":      "ka2.category.nachbarschaftstreffpunkte_und_stadtteilarbeit",
             "type_uri": "ka2.criteria.kategorie"
@@ -59,8 +81,8 @@
             "type_uri": "ka2.criteria.kategorie"
         },
         {
-            "value":    "Not",
-            "uri":      "ka2.category.not",
+            "value":    "Notdienste",
+            "uri":      "ka2.category.notdienste",
             "type_uri": "ka2.criteria.kategorie"
         },
         {
@@ -69,8 +91,13 @@
             "type_uri": "ka2.criteria.kategorie"
         },
         {
-            "value":    "SeniorInnen",
-            "uri":      "ka2.category.seniorinnen",
+            "value":    "Seniorinnen + Senioren",
+            "uri":      "ka2.category.seniorinnen_und_senioren",
+            "type_uri": "ka2.criteria.kategorie"
+        },
+        {
+            "value":    "Spezielle Angebote f\u00fcr Migranten und Migrantinnen",
+            "uri":      "ka2.category.spezielle_angebote_fuer_migranten_und_migrantinnen",
             "type_uri": "ka2.criteria.kategorie"
         },
         {
@@ -87,8 +114,28 @@
         # Angebote
 
         {
-            "value":    "Angebote f\u00fcr Menschen mit Behinderung",
+            "value":    "Angebote f\u00fcr Menschen mit Behinderung/Integration",
             "uri":      "ka2.category.angebote_fuer_menschen_mit_behinderung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Angebote in Familienbildung, Elternbildung, Familienselbsthilfe, Familienberatung, Familienerholung",
+            "uri":      "ka2.category.angebote_in_familienbildung_elternbildung_familienselbsthilfe_familienberatung_familienerholung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Babysitter",
+            "uri":      "ka2.category.babysitter",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Beratung bei Trennung und Scheidung",
+            "uri":      "ka2.category.beratung_bei_trennung_und_scheidung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Beratung und Hilfe in Krisensituationen",
+            "uri":      "ka2.category.beratung_und_hilfe_in_krisensituationen",
             "type_uri": "ka2.criteria.angebot"
         },
         {
@@ -97,8 +144,63 @@
             "type_uri": "ka2.criteria.angebot"
         },
         {
+            "value":    "Berufsausbildung",
+            "uri":      "ka2.category.berufsausbildung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Berufsberatung und Orientierung",
+            "uri":      "ka2.category.berufsberatung_und_orientierung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Drogenberatung",
+            "uri":      "ka2.category.drogenberatung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Drogenentzugseinrichtung",
+            "uri":      "ka2.category.drogenentzugseinrichtung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Eltern-Kind-Gruppen",
+            "uri":      "ka2.category.eltern_kind_gruppen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
             "value":    "Erziehungs- und Familienberatung",
             "uri":      "ka2.category.erziehungs_und_familienberatung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Fallmanagement/Jugendamt/Behindertenhilfe",
+            "uri":      "ka2.category.fallmanagement_jugendamt_behindertenhilfe",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Familiencaf\u00e9s",
+            "uri":      "ka2.category.familiencafes",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Familienkasse",
+            "uri":      "ka2.category.familienkasse",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Familienzentren",
+            "uri":      "ka2.category.familienzentren",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Fort- und Weiterbildungen",
+            "uri":      "ka2.category.fort_und_weiterbildungen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Frauenh\u00e4user",
+            "uri":      "ka2.category.frauenhaeuser",
             "type_uri": "ka2.criteria.angebot"
         },
         {
@@ -107,8 +209,43 @@
             "type_uri": "ka2.criteria.angebot"
         },
         {
+            "value":    "Geburtsh\u00e4user",
+            "uri":      "ka2.category.geburtshaeuser",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Gezielte Gesundheitsf\u00f6rderung",
+            "uri":      "ka2.category.gezielte_gesundheitsfoerderung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Gro\u00dfelterndienst",
+            "uri":      "ka2.category.grosselterndienst",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Grund- und Oberschulen",
+            "uri":      "ka2.category.grund_und_oberschulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
             "value":    "Grundschulen",
             "uri":      "ka2.category.grundschulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Hausaufgabenbetreuung",
+            "uri":      "ka2.category.hausaufgabenbetreuung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Hebammen",
+            "uri":      "ka2.category.hebammen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Hilfen in besonderen Notsituationen",
+            "uri":      "ka2.category.hilfen_in_besonderen_notsituationen",
             "type_uri": "ka2.criteria.angebot"
         },
         {
@@ -117,8 +254,118 @@
             "type_uri": "ka2.criteria.angebot"
         },
         {
+            "value":    "HIV-Beratung",
+            "uri":      "ka2.category.hiv_beratung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Hotline",
+            "uri":      "ka2.category.hotline",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Jobcenter/Agentur f\u00fcr Arbeit",
+            "uri":      "ka2.category.jobcenter_agentur_fuer_arbeit",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
             "value":    "Jugendberatung / Jugendberufshilfe",
             "uri":      "ka2.category.jugendberatung_und_jugendberufshilfe",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Jugendfreizeiteinrichtungen",
+            "uri":      "ka2.category.jugendfreizeiteinrichtungen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Jugendgerichtshilfe/Bew\u00e4hrungshilfe",
+            "uri":      "ka2.category.jugendgerichtshilfe_bewaehrungshilfe",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Jugendnotdienst",
+            "uri":      "ka2.category.jugendnotdienst",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Jugendsozialarbeit",
+            "uri":      "ka2.category.jugendsozialarbeit",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kieznahe Mehrgenerationsangebote",
+            "uri":      "ka2.category.kieznahe_mehrgenerationsangebote",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kinder- und Jugendgesundheitsdienste",
+            "uri":      "ka2.category.kinder_und_jugendgesundheitsdienste",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kinder- und Jugendnotdienst",
+            "uri":      "ka2.category.kinder_und_jugendnotdienst",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kinder- und Jugendspychiatrische Beratungsstelle",
+            "uri":      "ka2.category.kinder_und_jugendspychiatrische_beratungsstelle",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kinderfreizeiteinrichtungen",
+            "uri":      "ka2.category.kinderfreizeiteinrichtungen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kindernotdienst",
+            "uri":      "ka2.category.kindernotdienst",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kinderschutzteam",
+            "uri":      "ka2.category.kinderschutzteam",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kinderspielpl\u00e4tze",
+            "uri":      "ka2.category.kinderspielplaetze",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kirchen- und Religionsgemeinschaften",
+            "uri":      "ka2.category.kirchen_und_religionsgemeinschaften",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "KJPD",
+            "uri":      "ka2.category.kjpd",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Krankenh\u00e4user",
+            "uri":      "ka2.category.krankenhaeuser",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Kultur- und Bildungseinrichtungen",
+            "uri":      "ka2.category.kultur_und_bildungseinrichtungen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Leitung und Team des Jugendamtes, 8 Regionen",
+            "uri":      "ka2.category.leitung_und_team_des_jugendamtes",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Logop\u00e4dische Praxen",
+            "uri":      "ka2.category.logopaedische_praxen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Mietberatung",
+            "uri":      "ka2.category.mietberatung",
             "type_uri": "ka2.criteria.angebot"
         },
         {
@@ -127,8 +374,48 @@
             "type_uri": "ka2.criteria.angebot"
         },
         {
+            "value":    "Musikschulen/VHS",
+            "uri":      "ka2.category.musikschulen_vhs",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
             "value":    "Oberschulen",
             "uri":      "ka2.category.oberschulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "offene Treffpunkte mit sozialkulturellem Charakter",
+            "uri":      "ka2.category.offene_treffpunkte_mit_sozialkulturellem_charakter",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Qualifizierung und Besch\u00e4ftigung",
+            "uri":      "ka2.category.qualifizierung_und_beschaeftigung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Quartiersmanagement",
+            "uri":      "ka2.category.quartiersmanagement",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Rechtsberatung",
+            "uri":      "ka2.category.rechtsberatung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Regionale Dienste",
+            "uri":      "ka2.category.regionale_dienste",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Reha im Jobcenter/Arbeitsamt",
+            "uri":      "ka2.category.reha_im_jobcenter_arbeitsamt",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "schulbezogene Angebote der Jugendhilfe",
+            "uri":      "ka2.category.schulbezogene_angebote_der_jugendhilfe",
             "type_uri": "ka2.criteria.angebot"
         },
         {
@@ -142,8 +429,78 @@
             "type_uri": "ka2.criteria.angebot"
         },
         {
+            "value":    "Schulsporthalle",
+            "uri":      "ka2.category.schulsporthalle",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Schwimmbad",
+            "uri":      "ka2.category.schwimmbad",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Selbsthilfegruppen",
+            "uri":      "ka2.category.selbsthilfegruppen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
             "value":    "Sonstige Schulen",
             "uri":      "ka2.category.sonstige_schulen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Sozialhilfeberatung",
+            "uri":      "ka2.category.sozialhilfeberatung",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Sport- und Bolzpl\u00e4tze",
+            "uri":      "ka2.category.sport_und_bolzplaetze",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Sportbezogene Jugendfreizeitangebote",
+            "uri":      "ka2.category.sportbezogene_jugendfreizeitangebote",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Sportvereine",
+            "uri":      "ka2.category.sportvereine",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Stadtteilarbeit",
+            "uri":      "ka2.category.stadtteilarbeit",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Streetworker",
+            "uri":      "ka2.category.streetworker",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Tagesbetreuung f\u00fcr Kinder",
+            "uri":      "ka2.category.tagesbetreuung_fuer_kinder",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Tr\u00e4ger der Jugendhilfe",
+            "uri":      "ka2.category.traeger_der_jugendhilfe",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Unterhalt/Vaterschaftsanerkennung im Jugendamt",
+            "uri":      "ka2.category.unterhalt_vaterschaftsanerkennung_im_jugendamt",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "Wohnen",
+            "uri":      "ka2.category.wohnen",
+            "type_uri": "ka2.criteria.angebot"
+        },
+        {
+            "value":    "\u00c4rzte",
+            "uri":      "ka2.category.aerzte",
             "type_uri": "ka2.criteria.angebot"
         },
 
@@ -155,6 +512,11 @@
             "type_uri": "ka2.criteria.zielgruppe"
         },
         {
+            "value":    "Auszubildende",
+            "uri":      "ka2.category.auszubildende",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
             "value":    "Auszubildende + junge Erwachsene",
             "uri":      "ka2.category.auszubildende_und_junge_erwachsene",
             "type_uri": "ka2.criteria.zielgruppe"
@@ -162,6 +524,11 @@
         {
             "value":    "Erwachsene",
             "uri":      "ka2.category.erwachsene",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Familien",
+            "uri":      "ka2.category.familien",
             "type_uri": "ka2.criteria.zielgruppe"
         },
         {
@@ -190,14 +557,42 @@
             "type_uri": "ka2.criteria.zielgruppe"
         },
         {
+            "value":    "junge Erwachsene",
+            "uri":      "ka2.category.junge_erwachsene",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Kinder",
+            "uri":      "ka2.category.zielgruppe_kinder",   # ka2.category.kinder is used already
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
             "value":    "Kinder im Schulalter",
             "uri":      "ka2.category.kinder_im_schulalter",
+            "type_uri": "ka2.criteria.zielgruppe"
+        },
+        {
+            "value":    "Seniorinnen + Senioren",
+            "uri":      "ka2.category.zielgruppe_seniorinnen_und_senioren",     # ka2.category.seniorinnen_und_senioren
             "type_uri": "ka2.criteria.zielgruppe"
         },
         {
             "value":    "Sonstige",
             "uri":      "ka2.category.sonstige",
             "type_uri": "ka2.criteria.zielgruppe"
+        },
+
+        # Überregional
+
+        {
+            "value":    "Berlinweit",
+            "uri":      "ka2.category.berlinweit",
+            "type_uri": "ka2.criteria.ueberregional"
+        },
+        {
+            "value":    "Gesamtbezirk",
+            "uri":      "ka2.category.gesamtbezirk",
+            "type_uri": "ka2.criteria.ueberregional"
         }
     ]
 }
