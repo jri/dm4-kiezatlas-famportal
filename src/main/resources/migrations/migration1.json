@@ -1,0 +1,38 @@
+{
+    "topic_types": [
+        {
+            "value":            "Kategorie",
+            "uri":              "famportal.category.name",
+            "data_type_uri":    "dm4.core.text",
+            "index_mode_uris": ["dm4.core.fulltext", "dm4.core.fulltext_key"]
+        },
+        {
+            "value":            "Reihenfolge",
+            "uri":              "famportal.category.order",
+            "data_type_uri":    "dm4.core.number"
+        },
+        {
+            "value":            "Familienportal Kategorie",
+            "uri":              "famportal.category",
+            "data_type_uri":    "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "famportal.category.name",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                },
+                {
+                    "child_type_uri":         "famportal.category.order",
+                    "child_cardinality_uri":  "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.composition_def"
+                },
+                {
+                    "child_type_uri":         "famportal.category",
+                    "child_cardinality_uri":  "dm4.core.many",
+                    "parent_cardinality_uri": "dm4.core.one",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
+        }
+    ]
+}

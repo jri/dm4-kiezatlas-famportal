@@ -1,0 +1,107 @@
+{
+    "topics": [
+        {
+            "uri":      "famportal.category.root",
+            "type_uri": "famportal.category",
+            "composite": {
+                "famportal.category.name": "Familienportal Wurzel",
+                "famportal.category": [
+                    {
+                        "famportal.category.name": "Themen",
+                        "famportal.category.order": 10,
+                        "famportal.category": [
+                            {
+                                "famportal.category.name": "Gesundheit",
+                                "famportal.category.order": 10,
+                                "famportal.category": [
+                                    {
+                                        "uri":      "famportal.category.pflege-70",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Pflege",
+                                            "famportal.category.order": 10
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.sterbefall-153",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Sterbefall",
+                                            "famportal.category.order": 20
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.notfall-96",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Notfall",
+                                            "famportal.category.order": 30
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "famportal.category.name": "Leben mit Kindern",
+                                "famportal.category.order": 20,
+                                "famportal.category": [
+                                    {
+                                        "uri":      "famportal.category.kinderwunsch-3",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Kinderwunsch",
+                                            "famportal.category.order": 10
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.schwangerschaft-52",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Schwangerschaft",
+                                            "famportal.category.order": 20
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.geburt-18",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Geburt",
+                                            "famportal.category.order": 30
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.sorgerecht-123",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Sorgerecht",
+                                            "famportal.category.order": 40
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.kinderbetreuung-8",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Kinderbetreuung",
+                                            "famportal.category.order": 50
+                                        }
+                                    },
+                                    {
+                                        "uri":      "famportal.category.feriengestaltung-14",
+                                        "type_uri": "famportal.category",
+                                        "composite": {
+                                            "famportal.category.name": "Feriengestaltung",
+                                            "famportal.category.order": 60
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "famportal.category.name": "Lebenslagen",
+                        "famportal.category.order": 20,
+                    }
+                ]
+            }
+        }
+    ]
+}
