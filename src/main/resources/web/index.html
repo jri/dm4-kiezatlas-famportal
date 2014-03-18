@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html ng-app>
+    <head>
+        <meta charset="utf-8">
+        <title>Familienportal -- Kiezatlas Redaktionswerkzeug</title>
+        <script src="/de.kiezatlas.famportal/script/app.js"></script>
+        <script src="/de.kiezatlas.famportal/script/vendor/angular.min.js"></script>
+    </head>
+    <body ng-controller="SearchController">
+        <input type="text" ng-model="searchTerm" ng-keyup="search()"><br /><br />
+        {{categories.length}} Angebote:
+        <ul>
+            <li ng-repeat="category in categories | orderBy:'value'">{{category.value}}</li>
+        </ul>
+    </body>
+</html>
