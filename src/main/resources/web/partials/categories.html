@@ -1,0 +1,7 @@
+<div id="kiezatlas-search" ng-controller="searchController">
+    <input type="text" ng-model="searchTerm" ng-keyup="search()"><br /><br />
+    {{categories.length}} Angebote:
+    <ul>
+        <li ng-repeat="category in categories | orderBy:'value'">{{category.value}}</li>
+    </ul>
+</div>

@@ -1,0 +1,24 @@
+<div id="famportal-categories">
+    <ul>
+        <li ng-repeat="category in root.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+            {{category.value}}
+            <ul>
+                <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                    {{category.value}}
+                    <ul>
+                        <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                            <a href="" ng-click="showGeoObjects(category.id)">{{category.value}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div id="kiezatlas-objects">
+    {{geoObjects.length}} Kiezatlas Objekte:
+    <ul>
+        <li ng-repeat="geoObject in geoObjects">{{geoObject.value}}</li>
+    </ul>
+</div>
