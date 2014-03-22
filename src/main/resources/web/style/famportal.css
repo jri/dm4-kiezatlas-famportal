@@ -1,0 +1,26 @@
+body {
+    font-family: "Lucida Grande", Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5em;
+}
+
+#famportal-categories {
+    background-color: #eee;
+    padding: 1em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#kiezatlas-objects {
+    background-color: #eee;
+    padding: 1em;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#kiezatlas-search {
+    background-color: #eee;
+    padding: 1em;
+    display: inline-block;
+    vertical-align: top;
+}

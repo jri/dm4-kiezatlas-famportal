@@ -24,6 +24,9 @@
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>de.kiezatlas.famportal</Bundle-SymbolicName>
+                        <Bundle-Activator>
+                            de.kiezatlas.famportal.FamilienportalPlugin
+                        </Bundle-Activator>
                     </instructions>
                 </configuration>
             </plugin>

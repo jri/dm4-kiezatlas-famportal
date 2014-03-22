@@ -1,29 +1,44 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="famportal">
     <head>
         <meta charset="utf-8">
         <title>Familienportal -- Kiezatlas Redaktionswerkzeug</title>
-        <script src="/de.kiezatlas.famportal/script/app.js"></script>
         <script src="/de.kiezatlas.famportal/script/vendor/angular.min.js"></script>
+        <script src="/de.kiezatlas.famportal/script/app.js"></script>
+        <link rel="stylesheet" href="/de.kiezatlas.famportal/style/famportal.css" type="text/css">
     </head>
-    <body ng-controller="SearchController">
-        <ul>
-            <li ng-repeat="category in root.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">{{category.value}}
-                <ul>
-                    <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">{{category.value}}
-                        <ul>
-                            <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">{{category.value}}
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+    <body ng-controller="famportalController">
+        <div id="famportal-categories">
+            <ul>
+                <li ng-repeat="category in root.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                    {{category.value}}
+                    <ul>
+                        <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                            {{category.value}}
+                            <ul>
+                                <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                                    <a href="#" ng-click="showGeoObjects(category.id)">{{category.value}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
 
-        <input type="text" ng-model="searchTerm" ng-keyup="search()"><br /><br />
-        {{categories.length}} Angebote:
-        <ul>
-            <li ng-repeat="category in categories | orderBy:'value'">{{category.value}}</li>
-        </ul>
+        <div id="kiezatlas-objects">
+            {{geoObjects.length}} Kiezatlas Objekte:
+            <ul>
+                <li ng-repeat="geoObject in geoObjects">{{geoObject.value}}</li>
+            </ul>
+        </div>
+
+        <div id="kiezatlas-search">
+            <input type="text" ng-model="searchTerm" ng-keyup="search()"><br /><br />
+            {{categories.length}} Angebote:
+            <ul>
+                <li ng-repeat="category in categories | orderBy:'value'">{{category.value}}</li>
+            </ul>
+        </div>
     </body>
 </html>
