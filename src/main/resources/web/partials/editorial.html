@@ -6,8 +6,8 @@
                 <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
                     {{category.value}}
                     <ul>
-                        <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
-                            <a href="" ng-click="showGeoObjects(category.id)">{{category.value}}</a>
+                        <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'" ng-class="{selected: category.id == famportalCategory.id}">
+                            <a href="" ng-click="selectFamportalCategory(category)">{{category.value}}</a>
                         </li>
                     </ul>
                 </li>
@@ -17,7 +17,7 @@
 </div>
 
 <div id="kiezatlas-objects">
-    {{geoObjects.length}} Kiezatlas Objekte:
+    <b>{{famportalCategory.value}}</b> sind {{geoObjects.length}} Kiezatlas Objekte zugeordnet:
     <ul>
         <li ng-repeat="geoObject in geoObjects">{{geoObject.value}}</li>
     </ul>
@@ -40,4 +40,5 @@
             </ul>
         </li>
     </ul>
+    <button ng-click="assignToFamportalCategory()">Zu <b>{{famportalCategory.value}}</b> zuordnen</button>
 </div>

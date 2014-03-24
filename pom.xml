@@ -16,6 +16,14 @@
         <version>4.3-SNAPSHOT</version>
     </parent>
 
+    <dependencies>
+        <dependency>
+            <groupId>de.deepamehta</groupId>
+            <artifactId>deepamehta-facets</artifactId>
+            <version>4.3-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>

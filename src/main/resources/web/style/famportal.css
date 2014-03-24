@@ -24,3 +24,7 @@ body[ng-view] {
     display: inline-block;
     vertical-align: top;
 }
+
+#famportal-categories .selected {
+    background-color: #ff8;
+}

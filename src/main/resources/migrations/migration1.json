@@ -33,6 +33,19 @@
                     "assoc_type_uri":         "dm4.core.aggregation_def"
                 }
             ]
+        },
+        {
+            "value":         "Familienportal Kategorie Facet",
+            "uri":           "famportal.category.facet",
+            "data_type_uri": "dm4.core.composite",
+            "assoc_defs": [
+                {
+                    "child_type_uri":         "famportal.category",
+                    "child_cardinality_uri":  "dm4.core.many",
+                    "parent_cardinality_uri": "dm4.core.many",
+                    "assoc_type_uri":         "dm4.core.aggregation_def"
+                }
+            ]
         }
     ]
 }
