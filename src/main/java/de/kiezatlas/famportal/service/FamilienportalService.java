@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface FamilienportalService extends PluginService {
 
-    void assignToFamportalCategory(String categoryFacetUri, long categoryId, List<Long> geoObjectIds);
+    void assignToFamportalCategory(long categoryId, List<Long> geoObjectIds);
+
+    void removeFromFamportalCategory(long categoryId, List<Long> geoObjectIds);
 }

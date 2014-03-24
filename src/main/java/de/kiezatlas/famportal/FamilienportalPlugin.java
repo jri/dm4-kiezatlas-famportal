@@ -30,6 +30,11 @@ import java.util.List;
 @Produces("application/json")
 public class FamilienportalPlugin extends PluginActivator implements FamilienportalService {
 
+    // ------------------------------------------------------------------------------------------------------- Constants
+
+    private static final String FAMPORTAL_CATEGORY_URI       = "famportal.category";
+    private static final String FAMPORTAL_CATEGORY_FACET_URI = "famportal.category.facet";
+
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
     private FacetsService facetsService;
@@ -45,15 +50,26 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
 
     @PUT
-    @Path("/category_facet/{uri}/category/{id}")
+    @Path("/category/{id}")
     @Override
-    public void assignToFamportalCategory(@PathParam("uri") String categoryFacetUri, @PathParam("id") long categoryId,
+    public void assignToFamportalCategory(@PathParam("id") long categoryId,
                                           @QueryParam("geo_object_id") List<Long> geoObjectIds) {
-        String childTypeUri = getAssocDef(categoryFacetUri).getChildTypeUri();
+        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
+        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(categoryId);
         for (long geoObjectId : geoObjectIds) {
-            // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
-            FacetValue value = new FacetValue(childTypeUri).addRef(categoryId);
-            facetsService.updateFacet(geoObjectId, categoryFacetUri, value, null);  // clientState=null
+            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
+        }
+    }
+
+    @DELETE
+    @Path("/category/{id}")
+    @Override
+    public void removeFromFamportalCategory(@PathParam("id") long categoryId,
+                                            @QueryParam("geo_object_id") List<Long> geoObjectIds) {
+        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
+        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addDeletionRef(categoryId);
+        for (long geoObjectId : geoObjectIds) {
+            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
         }
     }
 
@@ -74,13 +90,5 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Override
     public void serviceGone(PluginService service) {
         facetsService = null;
-    }
-
-    // ------------------------------------------------------------------------------------------------- Private Methods
-
-    // ### FIXME: there is a copy in FacetsPlugin.java
-    private AssociationDefinition getAssocDef(String facetTypeUri) {
-        // Note: a facet type has exactly *one* association definition
-        return dms.getTopicType(facetTypeUri).getAssocDefs().iterator().next();
     }
 }

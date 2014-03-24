@@ -19,8 +19,11 @@
 <div id="kiezatlas-objects">
     <b>{{famportalCategory.value}}</b> sind {{geoObjects.length}} Kiezatlas Objekte zugeordnet:
     <ul>
-        <li ng-repeat="geoObject in geoObjects">{{geoObject.value}}</li>
+        <li ng-repeat="geoObject in geoObjects">
+            <input type="checkbox" ng-model="geoObject.selected"> {{geoObject.value}}
+        </li>
     </ul>
+    <button ng-click="removeFromFamportalCategory()">Zuordnungen löschen</button>
 </div>
 
 <div id="kiezatlas-search">
