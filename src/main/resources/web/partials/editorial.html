@@ -22,3 +22,22 @@
         <li ng-repeat="geoObject in geoObjects">{{geoObject.value}}</li>
     </ul>
 </div>
+
+<div id="kiezatlas-search">
+    <input type="text" ng-model="searchTerm" ng-keyup="searchGeoObjects()"><br /><br />
+    <ul>
+        <li ng-repeat="criteriaResult in searchResult | orderBy:'criteria.value'">
+            {{criteriaResult.criteria.value}}
+            <ul>
+                <li ng-repeat="categoryResult in criteriaResult.categories | orderBy:'category.value'">
+                    {{categoryResult.category.value}}
+                    <ul>
+                        <li ng-repeat="geoObject in categoryResult.geo_objects | orderBy:'value'">
+                            {{geoObject.value}}
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

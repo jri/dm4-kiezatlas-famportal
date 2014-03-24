@@ -23,11 +23,5 @@ import javax.ws.rs.Consumes;
 @Produces("application/json")
 public class FamilienportalPlugin extends PluginActivator implements FamilienportalService {
 
-    @GET
-    @Path("/geoobject/category/{id}")
-    @Override
-    public ResultList<RelatedTopic> getGeoObjectsByCategory(@PathParam("id") long famportalCategoryId) {
-        return dms.getTopic(famportalCategoryId, false).getRelatedTopics("dm4.core.aggregation", "dm4.core.child",
-            "dm4.core.parent", "dm4.kiezatlas.geo_object", false, false, 0);
-    }
+    // ### TODO
 }

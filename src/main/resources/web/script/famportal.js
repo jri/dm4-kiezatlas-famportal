@@ -20,6 +20,12 @@ angular.module("famportal", ["ngRoute"])
                 $scope.geoObjects = geoObjects
             })
         }
+
+        $scope.searchGeoObjects = function() {
+            famportalService.searchGeoObjects($scope.searchTerm, function(searchResult) {
+                $scope.searchResult = searchResult.search_result
+            })
+        }
     })
     .controller("searchController", function($scope, famportalService) {
         $scope.search = function() {
@@ -40,9 +46,16 @@ angular.module("famportal", ["ngRoute"])
         }
 
         this.getGeoObjectsByCategory = function(famportalCategoryId, callback) {
-            $http.get("/famportal/geoobject/category/" + famportalCategoryId).success(function(data) {
+            $http.get("/site/category/" + famportalCategoryId + "/objects").success(function(data) {
                 console.log("geoobjects for category", famportalCategoryId, data)
-                callback(data.items)
+                callback(data)
+            })
+        }
+
+        this.searchGeoObjects = function(searchTerm, callback) {
+            $http.get("/site/geoobject?search=" + searchTerm).success(function(data) {
+                console.log("search geoobjects", searchTerm, data)
+                callback(data)
             })
         }
 

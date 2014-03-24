@@ -8,5 +8,5 @@ import de.deepamehta.core.service.ResultList;
 
 public interface FamilienportalService extends PluginService {
 
-    ResultList<RelatedTopic> getGeoObjectsByCategory(long famportalCategoryId);
+    // ### TODO
 }

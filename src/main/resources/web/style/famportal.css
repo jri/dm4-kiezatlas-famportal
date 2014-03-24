@@ -1,4 +1,4 @@
-body {
+body[ng-view] {
     font-family: "Lucida Grande", Arial, sans-serif;
     font-size: 12px;
     line-height: 1.5em;
