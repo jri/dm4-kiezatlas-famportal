@@ -14,6 +14,7 @@ body[ng-view] {
 #kiezatlas-objects {
     background-color: #eee;
     padding: 1em;
+    padding-top: 4.9em;
     display: inline-block;
     vertical-align: top;
 }

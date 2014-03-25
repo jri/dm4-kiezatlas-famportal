@@ -23,45 +23,60 @@ angular.module("famportal", ["ngRoute"])
 
         $scope.selectFamportalCategory = function(category) {
             $scope.famportalCategory = category
-            famportalService.getGeoObjectsByCategory(category.id, function(geoObjects) {
-                $scope.geoObjects = geoObjects
-            })
+            updateGeoObjects()
         }
 
-        $scope.assignToFamportalCategory = function() {
-            famportalService.assignToFamportalCategory($scope.famportalCategory.id, geoObjectIds($scope.searchResult))
-
-            function geoObjectIds(searchResult) {
-                var geoObjectIds = []
-                angular.forEach(searchResult, function(criteriaResult) {
-                    angular.forEach(criteriaResult.categories, function(categoryResult) {
-                        angular.forEach(categoryResult.geo_objects, function(geoObject) {
-                            geoObjectIds.push(geoObject.id)
-                        })
-                    })
-                })
-                return geoObjectIds
-            }
-        }
-
-        $scope.removeFromFamportalCategory = function() {
-            famportalService.removeFromFamportalCategory($scope.famportalCategory.id, selectedIds($scope.geoObjects))
-
-            function selectedIds(geoObjects) {
-                var selected = []
-                angular.forEach(geoObjects, function(geoObject) {
-                    if (geoObject.selected) {
-                        selected.push(geoObject.id)
-                    }
-                })
-                return selected
-            }
+        $scope.selectGeoObject = function() {
+            $scope.geoObjects.selectedCount = selectedIds($scope.geoObjects).length
         }
 
         $scope.searchGeoObjects = function() {
             famportalService.searchGeoObjects($scope.searchTerm, function(searchResult) {
                 $scope.searchResult = searchResult.search_result
             })
+        }
+
+        $scope.assignToFamportalCategory = function() {
+            famportalService.assignToFamportalCategory($scope.famportalCategory.id, geoObjectIds($scope.searchResult),
+                updateGeoObjects)
+        }
+
+        $scope.removeFromFamportalCategory = function() {
+            famportalService.removeFromFamportalCategory($scope.famportalCategory.id, selectedIds($scope.geoObjects),
+                updateGeoObjects)
+        }
+
+        // ---
+
+        function updateGeoObjects() {
+            famportalService.getGeoObjectsByCategory($scope.famportalCategory.id, function(geoObjects) {
+                $scope.geoObjects = geoObjects
+                geoObjects.selectedCount = 0
+            })
+        }
+
+        // ---
+
+        function selectedIds(geoObjects) {
+            var selected = []
+            angular.forEach(geoObjects, function(geoObject) {
+                if (geoObject.selected) {
+                    selected.push(geoObject.id)
+                }
+            })
+            return selected
+        }
+
+        function geoObjectIds(searchResult) {
+            var geoObjectIds = []
+            angular.forEach(searchResult, function(criteriaResult) {
+                angular.forEach(criteriaResult.categories, function(categoryResult) {
+                    angular.forEach(categoryResult.geo_objects, function(geoObject) {
+                        geoObjectIds.push(geoObject.id)
+                    })
+                })
+            })
+            return geoObjectIds
         }
     })
     .service("famportalService", function($http) {
@@ -80,21 +95,23 @@ angular.module("famportal", ["ngRoute"])
             })
         }
 
-        this.assignToFamportalCategory = function(famportalCatId, geoObjectIds) {
-            console.log("assign famportal category", famportalCatId, "to geo objects", geoObjectIds)
-            $http.put("/famportal/category/" + famportalCatId + "?" + queryString("geo_object_id", geoObjectIds))
-        }
-
-        this.removeFromFamportalCategory = function(famportalCatId, geoObjectIds) {
-            console.log("remove famportal category", famportalCatId, "from geo objects", geoObjectIds)
-            $http.delete("/famportal/category/" + famportalCatId + "?" + queryString("geo_object_id", geoObjectIds))
-        }
-
         this.searchGeoObjects = function(searchTerm, callback) {
             $http.get("/site/geoobject?search=" + searchTerm).success(function(data) {
                 console.log("search geoobjects", searchTerm, data)
                 callback(data)
             })
+        }
+
+        this.assignToFamportalCategory = function(famportalCatId, geoObjectIds, callback) {
+            console.log("assign famportal category", famportalCatId, "to geo objects", geoObjectIds)
+            $http.put("/famportal/category/" + famportalCatId + "?" + queryString("geo_object_id", geoObjectIds))
+                .success(callback)
+        }
+
+        this.removeFromFamportalCategory = function(famportalCatId, geoObjectIds, callback) {
+            console.log("remove famportal category", famportalCatId, "from geo objects", geoObjectIds)
+            $http.delete("/famportal/category/" + famportalCatId + "?" + queryString("geo_object_id", geoObjectIds))
+                .success(callback)
         }
 
         // ---

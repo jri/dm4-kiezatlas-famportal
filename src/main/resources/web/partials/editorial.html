@@ -1,4 +1,5 @@
 <div id="famportal-categories">
+    <h3>Familienportal Kategorien</h3>
     <ul>
         <li ng-repeat="category in root.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
             {{category.value}}
@@ -16,14 +17,25 @@
     </ul>
 </div>
 
-<div id="kiezatlas-objects">
-    <b>{{famportalCategory.value}}</b> sind {{geoObjects.length}} Kiezatlas Objekte zugeordnet:
+<div id="kiezatlas-objects" ng-if="famportalCategory">
+    <b>{{famportalCategory.value}}</b> <ng-pluralize count="geoObjects.length" when="{
+        0: 'ist noch kein Kiezatlas Objekt zugeordnet.',
+        'one': 'ist 1 Kiezatlas Objekt zugeordnet:',
+        'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
     <ul>
         <li ng-repeat="geoObject in geoObjects">
-            <input type="checkbox" ng-model="geoObject.selected"> {{geoObject.value}}
+            <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()"> {{geoObject.value}}
         </li>
     </ul>
-    <button ng-click="removeFromFamportalCategory()">Zuordnungen löschen</button>
+    <button ng-click="removeFromFamportalCategory()" ng-if="geoObjects" ng-disabled="!geoObjects.selectedCount">
+        <ng-pluralize count="geoObjects.selectedCount" when="{
+            '0': 'Zuordnung entfernen',
+            'one': '1 Zuordnung entfernen',
+            'other': '{} Zuordnungen entfernen'}"></ng-pluralize>
+    </button>
+</div>
+<div id="kiezatlas-objects" ng-if="!famportalCategory">
+    <div><-- Wähle eine Kategorie aus</div>
 </div>
 
 <div id="kiezatlas-search">
