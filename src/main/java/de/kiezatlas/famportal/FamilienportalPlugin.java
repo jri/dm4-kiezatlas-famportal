@@ -53,7 +53,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Path("/category/{id}")
     @Override
     public void assignToFamportalCategory(@PathParam("id") long categoryId,
-                                          @QueryParam("geo_object_id") List<Long> geoObjectIds) {
+                                          @QueryParam("geo_object") List<Long> geoObjectIds) {
         // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
         FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(categoryId);
         for (long geoObjectId : geoObjectIds) {
@@ -65,7 +65,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Path("/category/{id}")
     @Override
     public void removeFromFamportalCategory(@PathParam("id") long categoryId,
-                                            @QueryParam("geo_object_id") List<Long> geoObjectIds) {
+                                            @QueryParam("geo_object") List<Long> geoObjectIds) {
         // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
         FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addDeletionRef(categoryId);
         for (long geoObjectId : geoObjectIds) {

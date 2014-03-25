@@ -18,7 +18,8 @@
 </div>
 
 <div id="kiezatlas-objects" ng-if="famportalCategory">
-    <b>{{famportalCategory.value}}</b> <ng-pluralize count="geoObjects.length" when="{
+    <h3>Zugeordnete Kiezatlas Objekte</h3>
+    Kategorie <b>{{famportalCategory.value}}</b> <ng-pluralize count="geoObjects.length" when="{
         0: 'ist noch kein Kiezatlas Objekt zugeordnet.',
         'one': 'ist 1 Kiezatlas Objekt zugeordnet:',
         'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
@@ -35,11 +36,14 @@
     </button>
 </div>
 <div id="kiezatlas-objects" ng-if="!famportalCategory">
+    <br /><br /><br /><br />
     <div><-- Wähle eine Kategorie aus</div>
+    <br />
 </div>
 
 <div id="kiezatlas-search">
-    <input type="text" ng-model="searchTerm" ng-keyup="searchGeoObjects()"><br /><br />
+    <h3>Kiezatlas Objekte suchen</h3>
+    <input type="text" ng-model="searchTerm" ng-keyup="searchGeoObjects()">
     <ul>
         <li ng-repeat="criteriaResult in searchResult | orderBy:'criteria.value'">
             {{criteriaResult.criteria.value}}
@@ -55,5 +59,12 @@
             </ul>
         </li>
     </ul>
-    <button ng-click="assignToFamportalCategory()">Zu <b>{{famportalCategory.value}}</b> zuordnen</button>
+    <p ng-if="searchResult.stats">
+        {{searchResult.stats.geoObjectCount}} Kiezatlas Objekte (aus
+        {{searchResult.stats.categoryCount}} Kategorien, aus
+        {{searchResult.stats.criteriaCount}} Kriterien)
+    </p>
+    <button ng-click="assignToFamportalCategory()" ng-if="searchResult" ng-disabled="!famportalCategory || !searchResult.stats.geoObjectCount">
+        Zu Kategorie <b>{{famportalCategory.value}}</b> zuordnen
+    </button>
 </div>

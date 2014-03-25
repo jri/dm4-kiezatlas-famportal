@@ -1,9 +1,26 @@
-// Application model
-//   root               - Famportal category tree (topic of type "famportal.category" with all child topics)
-//   famportalCategory  - Selected Famportal category (topic of type "famportal.category")
-//   geoObjects         - Geo Objects assigned to selected Famportal category (array of topics + "selected" property)
-//   searchResult       - Found Geo Objects, grouped by KA category (array of array of array of Geo Object topics)
-//
+/*
+    Application model
+
+    root               - Famportal category tree (topic of type "famportal.category" with all child topics)
+
+    famportalCategory  - Selected Famportal category (topic of type "famportal.category")
+        topic {
+        }
+
+    geoObjects         - Geo Objects assigned to selected Famportal category (middle box)
+        [
+            topic {
+            }.selected (boolean)
+        ].selectedCount
+
+    searchResult       - Found Geo Objects, grouped by KA category (array of array of array of Geo Object topics)
+        [
+            {
+            
+            }
+        ].stats {
+        }
+*/
 angular.module("famportal", ["ngRoute"])
     .config(function($routeProvider) {
         $routeProvider
@@ -33,6 +50,7 @@ angular.module("famportal", ["ngRoute"])
         $scope.searchGeoObjects = function() {
             famportalService.searchGeoObjects($scope.searchTerm, function(searchResult) {
                 $scope.searchResult = searchResult.search_result
+                $scope.searchResult.stats = stats($scope.searchResult)
             })
         }
 
@@ -51,7 +69,7 @@ angular.module("famportal", ["ngRoute"])
         function updateGeoObjects() {
             famportalService.getGeoObjectsByCategory($scope.famportalCategory.id, function(geoObjects) {
                 $scope.geoObjects = geoObjects
-                geoObjects.selectedCount = 0
+                $scope.geoObjects.selectedCount = 0
             })
         }
 
@@ -77,6 +95,21 @@ angular.module("famportal", ["ngRoute"])
                 })
             })
             return geoObjectIds
+        }
+
+        function stats(searchResult) {
+            var stats = {
+                criteriaCount:  searchResult.length,
+                categoryCount:  0,
+                geoObjectCount: 0
+            }
+            angular.forEach(searchResult, function(criteriaResult) {
+                stats.categoryCount += criteriaResult.categories.length
+                angular.forEach(criteriaResult.categories, function(categoryResult) {
+                    stats.geoObjectCount += categoryResult.geo_objects.length
+                })
+            })
+            return stats
         }
     })
     .service("famportalService", function($http) {
@@ -104,13 +137,13 @@ angular.module("famportal", ["ngRoute"])
 
         this.assignToFamportalCategory = function(famportalCatId, geoObjectIds, callback) {
             console.log("assign famportal category", famportalCatId, "to geo objects", geoObjectIds)
-            $http.put("/famportal/category/" + famportalCatId + "?" + queryString("geo_object_id", geoObjectIds))
+            $http.put("/famportal/category/" + famportalCatId + "?" + queryString("geo_object", geoObjectIds))
                 .success(callback)
         }
 
         this.removeFromFamportalCategory = function(famportalCatId, geoObjectIds, callback) {
             console.log("remove famportal category", famportalCatId, "from geo objects", geoObjectIds)
-            $http.delete("/famportal/category/" + famportalCatId + "?" + queryString("geo_object_id", geoObjectIds))
+            $http.delete("/famportal/category/" + famportalCatId + "?" + queryString("geo_object", geoObjectIds))
                 .success(callback)
         }
 
