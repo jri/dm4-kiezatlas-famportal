@@ -1,30 +1,32 @@
+html[ng-app] {
+    height: 100%;
+}
+
 body[ng-view] {
+    margin: 0;
+    display: table;
+    width: 100%;
+    height: 97%;
     font-family: "Lucida Grande", Arial, sans-serif;
     font-size: 12px;
     line-height: 1.5em;
+    background-color: #eef;
 }
 
-#famportal-categories {
-    background-color: #eee;
+body[ng-view] > div {
+    display: table-cell;
+}
+
+body[ng-view] > div > div {
+    height: 100%;
+    overflow: auto;
     padding: 1em;
-    display: inline-block;
-    vertical-align: top;
 }
 
-#kiezatlas-objects {
-    background-color: #eee;
-    padding: 1em;
-    display: inline-block;
-    vertical-align: top;
-}
+body[ng-view] > div:nth-child(1) {width: 30%;}
+body[ng-view] > div:nth-child(2) {width: 30%;}
+body[ng-view] > div:nth-child(3) {width: 40%;}
 
-#kiezatlas-search {
-    background-color: #eee;
-    padding: 1em;
-    display: inline-block;
-    vertical-align: top;
-}
-
-#famportal-categories .selected {
+body[ng-view] .selected {
     background-color: #ff8;
 }
