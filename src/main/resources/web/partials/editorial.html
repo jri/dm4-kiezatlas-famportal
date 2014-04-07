@@ -8,8 +8,18 @@
                     <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
                         {{category.value}}
                         <ul>
-                            <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'" ng-class="{selected: category.id == famportalCategory.id}">
-                                <a href="" ng-click="selectFamportalCategory(category)">{{category.value}}</a>
+                            <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                                <a href="" ng-click="selectFamportalCategory(category)" ng-class="{selected: category.id == famportalCategory.id}">{{category.value}}</a>
+                                <ul>
+                                    <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                                        <a href="" ng-click="selectFamportalCategory(category)" ng-class="{selected: category.id == famportalCategory.id}">{{category.value}}</a>
+                                        <ul>
+                                            <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+                                                <a href="" ng-click="selectFamportalCategory(category)" ng-class="{selected: category.id == famportalCategory.id}">{{category.value}}</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
