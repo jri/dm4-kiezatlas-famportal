@@ -2,31 +2,41 @@ html[ng-app] {
     height: 100%;
 }
 
-body[ng-view] {
+body {
+    height: 100%;
     margin: 0;
-    display: table;
-    width: 100%;
-    height: 97%;
     font-family: "Lucida Grande", Arial, sans-serif;
     font-size: 12px;
     line-height: 1.5em;
     background-color: #eef;
 }
 
-body[ng-view] > div {
+[ng-view] {
+    display: table;
+    width: 100%;
+    height: 97%;
+}
+
+[ng-view] > div {
     display: table-cell;
 }
 
-body[ng-view] > div > div {
+[ng-view] > div > div {
     height: 100%;
     overflow: auto;
     padding: 1em;
 }
 
-body[ng-view] > div:nth-child(1) {width: 30%;}
-body[ng-view] > div:nth-child(2) {width: 30%;}
-body[ng-view] > div:nth-child(3) {width: 40%;}
+[ng-view] > div:nth-child(1) {width: 30%;}
+[ng-view] > div:nth-child(2) {width: 30%;}
+[ng-view] > div:nth-child(3) {width: 40%;}
 
-body[ng-view] .selected {
+[ng-view] .selected {
     background-color: #ff8;
+}
+
+#loading-widget {
+    position: absolute;
+    top: 48%;
+    left: 48%;
 }

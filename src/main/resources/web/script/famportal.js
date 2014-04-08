@@ -23,6 +23,7 @@
 */
 angular.module("famportal", ["ngRoute"])
     .config(function($routeProvider) {
+        console.log("Configuring routes")
         $routeProvider
             .when("/editorial", {
                 templateUrl: "/de.kiezatlas.famportal/partials/editorial.html",  controller: "editorialController"
@@ -31,6 +32,27 @@ angular.module("famportal", ["ngRoute"])
                 templateUrl: "/de.kiezatlas.famportal/partials/categories.html", controller: "categoriesController"
             })
             .otherwise({redirectTo: "/editorial"})
+    })
+    .config(function($httpProvider) {
+        console.log("Configuring request/response interceptors")
+        $httpProvider.interceptors.push(function($injector) {
+            var $http
+            return {
+                request: function(config) {
+                    // console.log("Loading starts")
+                    document.getElementById("loading-widget").style.display = "block"
+                    return config
+                },
+                response: function(response) {
+                    $http = $http || $injector.get("$http")
+                    if (!$http.pendingRequests.length) {
+                        // console.log("Loading complete")
+                        document.getElementById("loading-widget").style.display = "none"
+                    }
+                    return response
+                }
+            }
+        })
     })
     .controller("editorialController", function($scope, famportalService) {
 

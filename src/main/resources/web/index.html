@@ -5,9 +5,11 @@
         <title>Familienportal -- Kiezatlas Redaktionswerkzeug</title>
         <link rel="stylesheet" href="/de.kiezatlas.famportal/style/famportal.css">
     </head>
-    <body ng-view>
+    <body>
         <script src="/de.kiezatlas.famportal/script/vendor/angular.min.js"></script>
         <script src="/de.kiezatlas.famportal/script/vendor/angular-route.min.js"></script>
         <script src="/de.kiezatlas.famportal/script/famportal.js"></script>
+        <img src="/de.kiezatlas.famportal/images/ajax-loader.gif" id="loading-widget">
+        <div ng-view />
     </body>
 </html>
