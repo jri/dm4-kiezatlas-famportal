@@ -1,8 +1,10 @@
+/* Keep in mind this CSS is loaded into the DM4 Webclient as well */
+
 html[ng-app] {
     height: 100%;
 }
 
-body {
+html[ng-app] > body {
     height: 100%;
     margin: 0;
     font-family: "Lucida Grande", Arial, sans-serif;

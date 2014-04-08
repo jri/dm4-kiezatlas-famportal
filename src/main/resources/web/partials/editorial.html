@@ -33,7 +33,7 @@
     <div ng-if="famportalCategory">
         <h3>Zugeordnete Kiezatlas Objekte</h3>
         Kategorie <b>{{famportalCategory.value}}</b> <ng-pluralize count="geoObjects.length" when="{
-            0: 'ist noch kein Kiezatlas Objekt zugeordnet.',
+            0: 'sind keine Kiezatlas Objekte zugeordnet.',
             'one': 'ist 1 Kiezatlas Objekt zugeordnet:',
             'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
         <ul>

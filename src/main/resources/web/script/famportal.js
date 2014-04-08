@@ -40,17 +40,25 @@ angular.module("famportal", ["ngRoute"])
             return {
                 request: function(config) {
                     // console.log("Loading starts")
-                    document.getElementById("loading-widget").style.display = "block"
+                    showLoadingWidget()
                     return config
                 },
                 response: function(response) {
-                    $http = $http || $injector.get("$http")
+                    $http = $http || $injector.get("$http")     // getting $http lazily avoids circular dependency
                     if (!$http.pendingRequests.length) {
                         // console.log("Loading complete")
-                        document.getElementById("loading-widget").style.display = "none"
+                        hideLoadingWidget()
                     }
                     return response
                 }
+            }
+
+            function showLoadingWidget() {
+                document.getElementById("loading-widget").style.display = "block"
+            }
+
+            function hideLoadingWidget() {
+                document.getElementById("loading-widget").style.display = "none"
             }
         })
     })
