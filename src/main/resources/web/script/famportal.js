@@ -114,8 +114,8 @@ angular.module("famportal", ["ngRoute"])
     })
     .service("famportalService", function($http) {
         this.getFamportalCategories = function(callback) {
-            var FAMPORTAL_CATEGORY_ROOT = "famportal.category.root"
-            $http.get("/core/topic/by_value/uri/" + FAMPORTAL_CATEGORY_ROOT).success(function(data) {
+            var FAMPORTAL_ROOT = "famportal.root"
+            $http.get("/core/topic/by_value/uri/" + FAMPORTAL_ROOT).success(function(data) {
                 console.log("root", data)
                 callback(data)
             })
