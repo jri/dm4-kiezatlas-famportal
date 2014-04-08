@@ -6,7 +6,7 @@
                 {{category.value}}
                 <ul>
                     <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
-                        {{category.value}}
+                        <a href="" ng-click="selectFamportalCategory(category)" ng-class="{selected: category.id == famportalCategory.id}">{{category.value}}</a>
                         <ul>
                             <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
                                 <a href="" ng-click="selectFamportalCategory(category)" ng-class="{selected: category.id == famportalCategory.id}">{{category.value}}</a>
