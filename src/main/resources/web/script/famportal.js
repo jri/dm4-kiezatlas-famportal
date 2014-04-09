@@ -90,13 +90,13 @@ angular.module("famportal", ["ngRoute"])
             })
         }
 
-        $scope.assignToFamportalCategory = function() {
-            famportalService.assignToFamportalCategory($scope.famportalCategory.id, geoObjectIds($scope.searchResult),
+        $scope.createAssignments = function() {
+            famportalService.createAssignments($scope.famportalCategory.id, categoryIds($scope.searchResult),
                 updateGeoObjects)
         }
 
-        $scope.removeFromFamportalCategory = function() {
-            famportalService.removeFromFamportalCategory($scope.famportalCategory.id, selectedIds($scope.geoObjects),
+        $scope.deleteAssignments = function() {
+            famportalService.deleteAssignments($scope.famportalCategory.id, selectedIds($scope.geoObjects),
                 updateGeoObjects)
         }
 
@@ -131,6 +131,16 @@ angular.module("famportal", ["ngRoute"])
                 })
             })
             return geoObjectIds
+        }
+
+        function categoryIds(searchResult) {
+            var categoryIds = []
+            angular.forEach(searchResult, function(criteriaResult) {
+                angular.forEach(criteriaResult.categories, function(categoryResult) {
+                    categoryIds.push(categoryResult.category.id)
+                })
+            })
+            return categoryIds
         }
 
         function stats(searchResult) {
@@ -171,14 +181,14 @@ angular.module("famportal", ["ngRoute"])
             })
         }
 
-        this.assignToFamportalCategory = function(famportalCatId, geoObjectIds, callback) {
-            console.log("assign famportal category", famportalCatId, "to geo objects", geoObjectIds)
-            $http.put("/famportal/category/" + famportalCatId + "?" + queryString("geo_object", geoObjectIds))
+        this.createAssignments = function(famportalCatId, kiezatlasCatIds, callback) {
+            console.log("assign Famportal category", famportalCatId, "to Kiezatlas categories", kiezatlasCatIds)
+            $http.put("/famportal/category/" + famportalCatId + "?" + queryString("ka_cat", kiezatlasCatIds))
                 .success(callback)
         }
 
-        this.removeFromFamportalCategory = function(famportalCatId, geoObjectIds, callback) {
-            console.log("remove famportal category", famportalCatId, "from geo objects", geoObjectIds)
+        this.deleteAssignments = function(famportalCatId, geoObjectIds, callback) {
+            console.log("remove Famportal category", famportalCatId, "from geo objects", geoObjectIds)
             $http.delete("/famportal/category/" + famportalCatId + "?" + queryString("geo_object", geoObjectIds))
                 .success(callback)
         }

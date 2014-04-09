@@ -4,8 +4,11 @@ import de.kiezatlas.famportal.service.FamilienportalService;
 
 import de.deepamehta.plugins.facets.service.FacetsService;
 import de.deepamehta.plugins.facets.model.FacetValue;
+import de.deepamehta.plugins.kiezatlas.service.KiezatlasService;
 
 import de.deepamehta.core.AssociationDefinition;
+import de.deepamehta.core.RelatedTopic;
+import de.deepamehta.core.Topic;
 import de.deepamehta.core.osgi.PluginActivator;
 import de.deepamehta.core.service.PluginService;
 import de.deepamehta.core.service.annotation.ConsumesService;
@@ -37,6 +40,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
+    private KiezatlasService kiezatlasService;
     private FacetsService facetsService;
 
     // -------------------------------------------------------------------------------------------------- Public Methods
@@ -52,22 +56,25 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @PUT
     @Path("/category/{id}")
     @Override
-    public void assignToFamportalCategory(@PathParam("id") long categoryId,
-                                          @QueryParam("geo_object") List<Long> geoObjectIds) {
+    public void createAssignments(@PathParam("id") long famportalCategoryId,
+                                  @QueryParam("ka_cat") List<Long> kiezatlasCategoryIds) {
         // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
-        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(categoryId);
-        for (long geoObjectId : geoObjectIds) {
-            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
+        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(famportalCategoryId);
+        for (long catId : kiezatlasCategoryIds) {
+            List<RelatedTopic> geoObjects = kiezatlasService.getGeoObjectsByCategory(catId);
+            for (Topic geoObject : geoObjects) {
+                facetsService.updateFacet(geoObject, FAMPORTAL_CATEGORY_FACET_URI, value, null, null);  // clientState=null
+            }
         }
     }
 
     @DELETE
     @Path("/category/{id}")
     @Override
-    public void removeFromFamportalCategory(@PathParam("id") long categoryId,
-                                            @QueryParam("geo_object") List<Long> geoObjectIds) {
+    public void deleteAssignments(@PathParam("id") long famportalCategoryId,
+                                  @QueryParam("geo_object") List<Long> geoObjectIds) {
         // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
-        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addDeletionRef(categoryId);
+        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addDeletionRef(famportalCategoryId);
         for (long geoObjectId : geoObjectIds) {
             facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
         }
@@ -82,13 +89,24 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
 
     @Override
-    @ConsumesService("de.deepamehta.plugins.facets.service.FacetsService")
+    @ConsumesService({
+        "de.deepamehta.plugins.facets.service.FacetsService",
+        "de.deepamehta.plugins.kiezatlas.service.KiezatlasService"
+    })
     public void serviceArrived(PluginService service) {
-        facetsService = (FacetsService) service;
+        if (service instanceof FacetsService) {
+            facetsService = (FacetsService) service;
+        } else if (service instanceof KiezatlasService) {
+            kiezatlasService = (KiezatlasService) service;
+        }
     }
 
     @Override
     public void serviceGone(PluginService service) {
-        facetsService = null;
+        if (service == facetsService) {
+            facetsService = null;
+        } else if (service == kiezatlasService) {
+            kiezatlasService = null;
+        }
     }
 }
