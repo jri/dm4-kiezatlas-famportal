@@ -23,6 +23,7 @@
                 geo_objects: [{
                 }]
                 expanded: boolean
+                include: boolean
             }]
         }].stats {
         }
@@ -83,10 +84,15 @@ angular.module("famportal", ["ngRoute"])
             $scope.geoObjects.selectedCount = selectedIds($scope.geoObjects).length
         }
 
+        $scope.selectKiezatlasCategory = function() {
+            updateStats($scope.searchResult)
+        }
+
         $scope.searchGeoObjects = function() {
             famportalService.searchGeoObjects($scope.searchTerm, function(searchResult) {
                 $scope.searchResult = searchResult.search_result
-                $scope.searchResult.stats = stats($scope.searchResult)
+                initSearchResult($scope.searchResult)
+                updateStats($scope.searchResult)
             })
         }
 
@@ -109,8 +115,6 @@ angular.module("famportal", ["ngRoute"])
             })
         }
 
-        // ---
-
         function selectedIds(geoObjects) {
             var selected = []
             angular.forEach(geoObjects, function(geoObject) {
@@ -121,41 +125,45 @@ angular.module("famportal", ["ngRoute"])
             return selected
         }
 
-        function geoObjectIds(searchResult) {
-            var geoObjectIds = []
+        function initSearchResult(searchResult) {
             angular.forEach(searchResult, function(criteriaResult) {
                 angular.forEach(criteriaResult.categories, function(categoryResult) {
-                    angular.forEach(categoryResult.geo_objects, function(geoObject) {
-                        geoObjectIds.push(geoObject.id)
-                    })
+                    if (categoryResult.geo_objects.length) {
+                        categoryResult.include = true
+                    }
                 })
             })
-            return geoObjectIds
+            //
+            searchResult.stats = {}
+        }
+
+        function updateStats(searchResult) {
+            var criteriaCount  = searchResult.length
+            var categoryCount  = 0
+            var geoObjectCount = 0
+            angular.forEach(searchResult, function(criteriaResult) {
+                categoryCount += criteriaResult.categories.length
+                angular.forEach(criteriaResult.categories, function(categoryResult) {
+                    if (categoryResult.include) {
+                        geoObjectCount += categoryResult.geo_objects.length
+                    }
+                })
+            })
+            searchResult.stats.criteriaCount  = criteriaCount
+            searchResult.stats.categoryCount  = categoryCount
+            searchResult.stats.geoObjectCount = geoObjectCount
         }
 
         function categoryIds(searchResult) {
             var categoryIds = []
             angular.forEach(searchResult, function(criteriaResult) {
                 angular.forEach(criteriaResult.categories, function(categoryResult) {
-                    categoryIds.push(categoryResult.category.id)
+                    if (categoryResult.include) {
+                        categoryIds.push(categoryResult.category.id)
+                    }
                 })
             })
             return categoryIds
-        }
-
-        function stats(searchResult) {
-            var stats = {
-                criteriaCount:  searchResult.length,
-                categoryCount:  0,
-                geoObjectCount: 0
-            }
-            angular.forEach(searchResult, function(criteriaResult) {
-                stats.categoryCount += criteriaResult.categories.length
-                angular.forEach(criteriaResult.categories, function(categoryResult) {
-                    stats.geoObjectCount += categoryResult.geo_objects.length
-                })
-            })
-            return stats
         }
     })
     .service("famportalService", function($http) {

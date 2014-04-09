@@ -63,7 +63,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         for (long catId : kiezatlasCategoryIds) {
             List<RelatedTopic> geoObjects = kiezatlasService.getGeoObjectsByCategory(catId);
             for (Topic geoObject : geoObjects) {
-                facetsService.updateFacet(geoObject, FAMPORTAL_CATEGORY_FACET_URI, value, null, null);  // clientState=null
+                facetsService.updateFacet(geoObject, FAMPORTAL_CATEGORY_FACET_URI, value, null, null);
+                                                                               // clientState=null, directives=null
             }
         }
     }
