@@ -13,12 +13,18 @@
             }.selected (boolean)
         ].selectedCount
 
-    searchResult       - Found Geo Objects, grouped by KA category (array of array of array of Geo Object topics)
-        [
-            {
-            
+    searchResult       - Found Geo Objects, grouped by 1) KA criteria and 2) KA category
+        criteriaResults [{
+            criteria: {
             }
-        ].stats {
+            categories: [{
+                category: {
+                }
+                geo_objects: [{
+                }]
+                expanded: boolean
+            }]
+        }].stats {
         }
 */
 angular.module("famportal", ["ngRoute"])

@@ -63,9 +63,10 @@
             <li ng-repeat="criteriaResult in searchResult | orderBy:'criteria.value'">
                 {{criteriaResult.criteria.value}}
                 <ul>
-                    <li ng-repeat="categoryResult in criteriaResult.categories | orderBy:'category.value'">
+                    <li ng-repeat="categoryResult in criteriaResult.categories | orderBy:'category.value'" ng-style="{'list-style-type': categoryResult.geo_objects.length ? 'none' : 'inherit'}">
+                        <img class="expansion-handle" ng-if="categoryResult.geo_objects" ng-src="{{'/de.kiezatlas.famportal/images/' + (categoryResult.expanded ? 'expanded.png' : 'collapsed.png')}}" ng-click="categoryResult.expanded = !categoryResult.expanded">
                         {{categoryResult.category.value}}
-                        <ul>
+                        <ul ng-show="categoryResult.expanded">
                             <li ng-repeat="geoObject in categoryResult.geo_objects | orderBy:'value'">
                                 {{geoObject.value}}
                             </li>
