@@ -19,9 +19,10 @@ angular.module("famportal").controller("editorialController", function($scope, f
     }
 
     $scope.searchGeoObjects = function() {
-        famportalService.searchGeoObjects($scope.searchTerm, function(searchResult) {
-            console.log("Geo objects with", $scope.searchTerm, searchResult)
-            $scope.searchResult = searchResult.search_result
+        var searchTerm = $scope.searchTerm
+        famportalService.searchGeoObjects(searchTerm, function(searchResult) {
+            console.log("Geo objects with", searchTerm, searchResult)
+            $scope.searchResult = searchResult.items
             initSearchResult($scope.searchResult)
             updateStats($scope.searchResult)
         })

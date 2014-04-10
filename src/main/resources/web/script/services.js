@@ -9,9 +9,12 @@ angular.module("famportal").service("famportalService", function($http) {
         $http.get("/site/category/" + famportalCatId + "/objects").success(callback)
     }
 
-    this.searchGeoObjects = function(searchTerm, callback) {
-        $http.get("/site/geoobject?search=" + searchTerm).success(callback)
-    }
+    this.searchGeoObjects = function() {
+        var req = new OrderedRequest()
+        return function(searchTerm, callback) {
+            req.perform("GET", "/site/geoobject", {search: searchTerm}, callback)
+        }
+    }()
 
     this.createAssignments = function(famportalCatId, kiezatlasCatIds, callback) {
         $http.put("/famportal/category/" + famportalCatId + "?" + queryString("ka_cat", kiezatlasCatIds))
@@ -21,6 +24,26 @@ angular.module("famportal").service("famportalService", function($http) {
     this.deleteAssignments = function(famportalCatId, geoObjectIds, callback) {
         $http.delete("/famportal/category/" + famportalCatId + "?" + queryString("geo_object", geoObjectIds))
             .success(callback)
+    }
+
+    // ---
+
+    function OrderedRequest() {
+
+        var clock = 0
+
+        this.perform = function(method, url, params, callback) {
+            clock++
+            params.clock = clock
+            $http({method: method, url: url, params: params}).success(function(data) {
+                if (data.clock == clock) {
+                    callback(data)
+                } else {
+                    console.log("Obsolete response for", method, url, params,
+                        "(client clock=" + clock + ", response clock=" + data.clock + ")")
+                }
+            })
+        }
     }
 
     // ---
