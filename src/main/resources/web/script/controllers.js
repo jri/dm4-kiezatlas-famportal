@@ -1,6 +1,7 @@
 angular.module("famportal").controller("editorialController", function($scope, famportalService) {
 
     famportalService.getFamportalCategories(function(categories) {
+        console.log("Famportal tree", categories)
         $scope.root = categories
     })
 
@@ -19,6 +20,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
 
     $scope.searchGeoObjects = function() {
         famportalService.searchGeoObjects($scope.searchTerm, function(searchResult) {
+            console.log("Geo objects with", $scope.searchTerm, searchResult)
             $scope.searchResult = searchResult.search_result
             initSearchResult($scope.searchResult)
             updateStats($scope.searchResult)
@@ -26,19 +28,24 @@ angular.module("famportal").controller("editorialController", function($scope, f
     }
 
     $scope.createAssignments = function() {
-        famportalService.createAssignments($scope.famportalCategory.id, categoryIds($scope.searchResult),
-            updateGeoObjects)
+        var famportalCatId = $scope.famportalCategory.id
+        var kiezatlasCatIds = categoryIds($scope.searchResult)
+        console.log("Assigning Famportal category", famportalCatId, "to Kiezatlas categories", kiezatlasCatIds)
+        famportalService.createAssignments(famportalCatId, kiezatlasCatIds, updateGeoObjects)
     }
 
     $scope.deleteAssignments = function() {
-        famportalService.deleteAssignments($scope.famportalCategory.id, selectedIds($scope.geoObjects),
-            updateGeoObjects)
+        var famportalCatId = $scope.famportalCategory.id
+        var geoObjectIds = selectedIds($scope.geoObjects)
+        console.log("Removing Famportal category", famportalCatId, "from geo objects", geoObjectIds)
+        famportalService.deleteAssignments(famportalCatId, geoObjectIds, updateGeoObjects)
     }
 
     // ---
 
     function updateGeoObjects() {
         famportalService.getGeoObjectsByCategory($scope.famportalCategory.id, function(geoObjects) {
+            console.log("Geo objects for Famportal category", $scope.famportalCategory.id, geoObjects)
             $scope.geoObjects = geoObjects
             $scope.geoObjects.selectedCount = 0
         })
