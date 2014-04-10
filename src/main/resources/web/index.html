@@ -6,10 +6,14 @@
         <link rel="stylesheet" href="/de.kiezatlas.famportal/style/famportal.css">
     </head>
     <body>
-        <script src="/de.kiezatlas.famportal/script/vendor/angular.min.js"></script>
-        <script src="/de.kiezatlas.famportal/script/vendor/angular-route.min.js"></script>
-        <script src="/de.kiezatlas.famportal/script/famportal.js"></script>
         <img src="/de.kiezatlas.famportal/images/ajax-loader.gif" id="loading-widget">
         <div ng-view />
+        <!-- AngularJS -->
+        <script src="/de.kiezatlas.famportal/script/vendor/angular.min.js"></script>
+        <script src="/de.kiezatlas.famportal/script/vendor/angular-route.min.js"></script>
+        <!-- Familienportal -->
+        <script src="/de.kiezatlas.famportal/script/app.js"></script>
+        <script src="/de.kiezatlas.famportal/script/controllers.js"></script>
+        <script src="/de.kiezatlas.famportal/script/services.js"></script>
     </body>
 </html>
