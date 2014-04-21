@@ -7,7 +7,7 @@
     <name>DeepaMehta 4 Kiezatlas - Familienportal</name>
     <groupId>de.kiezatlas</groupId>
     <artifactId>dm43-SNAPSHOT-kiezatlas-famportal</artifactId>
-    <version>0.2-SNAPSHOT</version>
+    <version>0.2</version>
     <packaging>bundle</packaging>
 
     <parent>
