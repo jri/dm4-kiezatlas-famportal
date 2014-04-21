@@ -9,6 +9,7 @@ import de.deepamehta.plugins.kiezatlas.service.KiezatlasService;
 import de.deepamehta.core.AssociationDefinition;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
+import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.osgi.PluginActivator;
 import de.deepamehta.core.service.PluginService;
 import de.deepamehta.core.service.annotation.ConsumesService;
@@ -24,6 +25,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,8 +37,12 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     // ------------------------------------------------------------------------------------------------------- Constants
 
-    private static final String FAMPORTAL_CATEGORY_URI       = "famportal.category";
-    private static final String FAMPORTAL_CATEGORY_FACET_URI = "famportal.category.facet";
+    private static final String FAMPORTAL_CATEGORY_URI        = "famportal.category";
+    private static final String FAMPORTAL_CATEGORY_FACET_URI  = "famportal.category.facet";
+
+    // The URIs of Familienportal Kategorie topics have this prefix.
+    // The remaining part of the URI is the original Familienportal category XML ID.
+    private static final String FAMPORTAL_CATEGORY_URI_PREFIX = "famportal.";
 
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
@@ -52,6 +58,35 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     // ************************************
 
 
+
+    @GET
+    @Path("/geoobject")
+    @Override
+    public List<GeoObject> getGeoObjects(@QueryParam("category") List<CategorySet> categorySets) {
+        try {
+            if (categorySets.size() > 1) {
+                throw new RuntimeException("Queries with more than 1 \"category\" parameter not yet supported");
+            }
+            CategorySet categorySet = categorySets.get(0);
+            if (categorySet.size() > 1) {
+                throw new RuntimeException("More than 1 category per \"category\" parameter not yet supported");
+            }
+            //
+            List<GeoObject> geoObjects = new ArrayList();
+            for (String categoryXmlId : categorySet) {
+                long catId = categoryTopic(categoryXmlId).getId();
+                for (Topic geoObject : kiezatlasService.getGeoObjectsByCategory(catId)) {
+                    geoObject.loadChildTopics("dm4.contacts.address");  // ### TODO: do NOT fetch the address's childs
+                    geoObjects.add(createGeoObject(geoObject));
+                }
+            }
+            return geoObjects;
+        } catch (Exception e) {
+            throw new RuntimeException("Fetching geo objects failed (categorySets=" + categorySets + ")", e);
+        }
+    }
+
+    // ---
 
     @PUT
     @Path("/category/{id}")
@@ -109,5 +144,27 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         } else if (service == kiezatlasService) {
             kiezatlasService = null;
         }
+    }
+
+
+
+    // ------------------------------------------------------------------------------------------------- Private Methods
+
+    private GeoObject createGeoObject(Topic geoObjectTopic) {
+        GeoObject geoObject = new GeoObject();
+        geoObject.setName(geoObjectTopic.getSimpleValue().toString());
+        return geoObject;
+    }
+
+    /**
+     * Returns the Familienportal Kategorie topic that corresponds to the original Familienportal category XML ID.
+     */
+    private Topic categoryTopic(String famportalCategoryXmlId) {
+        Topic cat = dms.getTopic("uri", new SimpleValue(FAMPORTAL_CATEGORY_URI_PREFIX + famportalCategoryXmlId), false);
+        if (cat == null) {
+            throw new RuntimeException("\"" + famportalCategoryXmlId + "\" is an unknown Familienportal category " +
+                "XML ID (no corresponding topic found)");
+        }
+        return cat;
     }
 }
