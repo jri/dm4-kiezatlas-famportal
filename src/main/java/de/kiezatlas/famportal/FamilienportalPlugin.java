@@ -1,11 +1,10 @@
 package de.kiezatlas.famportal;
 
 import de.kiezatlas.famportal.service.FamilienportalService;
+import de.kiezatlas.service.KiezatlasService;
 
 import de.deepamehta.plugins.facets.service.FacetsService;
 import de.deepamehta.plugins.facets.model.FacetValue;
-import de.deepamehta.plugins.kiezatlas.service.KiezatlasService;
-
 import de.deepamehta.core.AssociationDefinition;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
@@ -126,8 +125,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     @Override
     @ConsumesService({
-        "de.deepamehta.plugins.facets.service.FacetsService",
-        "de.deepamehta.plugins.kiezatlas.service.KiezatlasService"
+        "de.kiezatlas.service.KiezatlasService",
+        "de.deepamehta.plugins.facets.service.FacetsService"
     })
     public void serviceArrived(PluginService service) {
         if (service instanceof FacetsService) {
