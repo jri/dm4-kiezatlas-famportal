@@ -5,6 +5,7 @@ import de.kiezatlas.service.KiezatlasService;
 
 import de.deepamehta.plugins.facets.service.FacetsService;
 import de.deepamehta.plugins.facets.model.FacetValue;
+import de.deepamehta.plugins.geomaps.service.GeomapsService;
 import de.deepamehta.core.AssociationDefinition;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
@@ -46,6 +47,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
     private KiezatlasService kiezatlasService;
+    private GeomapsService geomapsService;
     private FacetsService facetsService;
 
     // -------------------------------------------------------------------------------------------------- Public Methods
@@ -126,22 +128,27 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Override
     @ConsumesService({
         "de.kiezatlas.service.KiezatlasService",
+        "de.deepamehta.plugins.geomaps.service.GeomapsService",
         "de.deepamehta.plugins.facets.service.FacetsService"
     })
     public void serviceArrived(PluginService service) {
-        if (service instanceof FacetsService) {
-            facetsService = (FacetsService) service;
-        } else if (service instanceof KiezatlasService) {
+        if (service instanceof KiezatlasService) {
             kiezatlasService = (KiezatlasService) service;
+        } else if (service instanceof GeomapsService) {
+            geomapsService = (GeomapsService) service;
+        } else if (service instanceof FacetsService) {
+            facetsService = (FacetsService) service;
         }
     }
 
     @Override
     public void serviceGone(PluginService service) {
-        if (service == facetsService) {
-            facetsService = null;
-        } else if (service == kiezatlasService) {
+        if (service == kiezatlasService) {
             kiezatlasService = null;
+        } else if (service == geomapsService) {
+            geomapsService = null;
+        } else if (service == facetsService) {
+            facetsService = null;
         }
     }
 
@@ -151,7 +158,14 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     private GeoObject createGeoObject(Topic geoObjectTopic) {
         GeoObject geoObject = new GeoObject();
+        // name
         geoObject.setName(geoObjectTopic.getSimpleValue().toString());
+        // geolocation
+        Topic address = geoObjectTopic.getCompositeValue().getTopic("dm4.contacts.address");
+        geoObject.setGeoCoordinate(geomapsService.getGeoCoordinate(address));
+        // link
+        // ### TODO
+        //
         return geoObject;
     }
 

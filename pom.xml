@@ -22,11 +22,6 @@
             <artifactId>dm43-SNAPSHOT-kiezatlas</artifactId>
             <version>2.1.5-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>de.deepamehta</groupId>
-            <artifactId>deepamehta-facets</artifactId>
-            <version>4.3-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>
