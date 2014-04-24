@@ -1,6 +1,6 @@
 angular.module("famportal").service("famportalService", function($http) {
 
-    this.getFamportalCategories = function(callback) {
+    this.getFamportalTree = function(callback) {
         var FAMPORTAL_ROOT = "famportal.root"
         $http.get("/core/topic/by_value/uri/" + FAMPORTAL_ROOT).success(callback)
     }

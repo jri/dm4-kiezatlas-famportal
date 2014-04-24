@@ -2,7 +2,7 @@
     <div>
         <h3>Familienportal Kategorien</h3>
         <ul>
-            <li ng-repeat="category in root.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
+            <li ng-repeat="category in famportalTree.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
                 {{category.value}}
                 <ul>
                     <li ng-repeat="category in category.composite['famportal.category'] | orderBy:'composite[\'famportal.category.order\'].value'">
@@ -59,6 +59,7 @@
     <div>
         <h3>Kiezatlas Objekte suchen</h3>
         <input type="text" ng-model="searchTerm" ng-keyup="searchGeoObjects()">
+        <p ng-if="searchResult === null">Gebe mindestens {{config.MIN_SEARCH_TERM_LENGTH}} Buchstaben ein</p>
         <ul>
             <li ng-repeat="criteriaResult in searchResult | orderBy:'criteria.value'">
                 {{criteriaResult.criteria.value}}
