@@ -44,4 +44,12 @@ public class GeoObject implements JSONEnabled {
             throw new RuntimeException("Constructing a GeoObject failed", e);
         }
     }
+
+    void setLink(String link) {
+        try {
+            json.put("link", link);
+        } catch (Exception e) {
+            throw new RuntimeException("Constructing a GeoObject failed", e);
+        }
+    }
 }

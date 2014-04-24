@@ -6,6 +6,8 @@ import de.kiezatlas.service.KiezatlasService;
 import de.deepamehta.plugins.facets.service.FacetsService;
 import de.deepamehta.plugins.facets.model.FacetValue;
 import de.deepamehta.plugins.geomaps.service.GeomapsService;
+import de.deepamehta.plugins.geomaps.model.GeoCoordinate;
+
 import de.deepamehta.core.AssociationDefinition;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
@@ -27,6 +29,7 @@ import javax.ws.rs.Consumes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 
@@ -44,11 +47,27 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     // The remaining part of the URI is the original Familienportal category XML ID.
     private static final String FAMPORTAL_CATEGORY_URI_PREFIX = "famportal.";
 
+    // The URIs of KA2 Bezirksregion topics have this prefix.
+    // The remaining part of the URI is the original KA1 map alias.
+    private static final String KA2_BEZIRKSREGION_URI_PREFIX = "ka2.bezirksregion.";
+
+    // The URIs of KA2 Bezirk topics have this prefix.
+    // The remaining part of the URI is the original KA1 overall map alias.
+    private static final String KA2_BEZIRK_URI_PREFIX = "ka2.bezirk.";
+
+    // The URIs of KA2 Geo Object topics have this prefix.
+    // The remaining part of the URI is the original KA1 topic id.
+    private static final String KA2_GEO_OBJECT_URI_PREFIX = "de.kiezatlas.topic.";
+
+    private static final String KA1_MAP_URL = "http://www.kiezatlas.de/map/%s/p/%s";
+
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
     private KiezatlasService kiezatlasService;
     private GeomapsService geomapsService;
     private FacetsService facetsService;
+
+    private Logger logger = Logger.getLogger(getClass().getName());
 
     // -------------------------------------------------------------------------------------------------- Public Methods
 
@@ -77,8 +96,13 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
             for (String categoryXmlId : categorySet) {
                 long catId = categoryTopic(categoryXmlId).getId();
                 for (Topic geoObject : kiezatlasService.getGeoObjectsByCategory(catId)) {
-                    geoObject.loadChildTopics("dm4.contacts.address");  // ### TODO: do NOT fetch the address's childs
-                    geoObjects.add(createGeoObject(geoObject));
+                    try {
+                        geoObject.loadChildTopics("dm4.contacts.address");  // ### TODO: do NOT fetch address's childs
+                        geoObjects.add(createGeoObject(geoObject));
+                    } catch (Exception e) {
+                        logger.warning("### Excluding geo object " + geoObject.getId() + " (\"" +
+                            geoObject.getSimpleValue() + "\") from result (" + e + ")");
+                    }
                 }
             }
             return geoObjects;
@@ -156,19 +180,6 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     // ------------------------------------------------------------------------------------------------- Private Methods
 
-    private GeoObject createGeoObject(Topic geoObjectTopic) {
-        GeoObject geoObject = new GeoObject();
-        // name
-        geoObject.setName(geoObjectTopic.getSimpleValue().toString());
-        // geolocation
-        Topic address = geoObjectTopic.getCompositeValue().getTopic("dm4.contacts.address");
-        geoObject.setGeoCoordinate(geomapsService.getGeoCoordinate(address));
-        // link
-        // ### TODO
-        //
-        return geoObject;
-    }
-
     /**
      * Returns the Familienportal Kategorie topic that corresponds to the original Familienportal category XML ID.
      */
@@ -179,5 +190,52 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
                 "XML ID (no corresponding topic found)");
         }
         return cat;
+    }
+
+    // --- Create result GeoObject ---
+
+    private GeoObject createGeoObject(Topic geoObjectTopic) {
+        GeoObject geoObject = new GeoObject();
+        //
+        geoObject.setName(geoObjectTopic.getSimpleValue().toString());
+        geoObject.setGeoCoordinate(geoCoordinate(geoObjectTopic));
+        geoObject.setLink(link(geoObjectTopic));
+        //
+        return geoObject;
+    }
+
+    private GeoCoordinate geoCoordinate(Topic geoObjectTopic) {
+        Topic address = geoObjectTopic.getCompositeValue().getTopic("dm4.contacts.address");
+        return geomapsService.getGeoCoordinate(address);
+    }
+
+    private String link(Topic geoObjectTopic) {
+        String ka1TopicId, ka1MapAlias;
+        //
+        ka1TopicId = uriPostfix(geoObjectTopic.getUri(), KA2_GEO_OBJECT_URI_PREFIX, "geo object");
+        //
+        Topic bezirksregion = facetsService.getFacet(geoObjectTopic, "ka2.bezirksregion.facet");
+        if (bezirksregion != null) {
+            ka1MapAlias = uriPostfix(bezirksregion.getUri(), KA2_BEZIRKSREGION_URI_PREFIX, "Bezirksregion");
+        } else {
+            // fallback to Bezirksgesamtkarte when Bezirksregion is unknown
+            Topic bezirk = facetsService.getFacet(geoObjectTopic, "ka2.bezirk.facet");
+            if (bezirk != null) {
+                ka1MapAlias = uriPostfix(bezirk.getUri(), KA2_BEZIRK_URI_PREFIX, "Bezirk");
+            } else {
+                throw new RuntimeException("Neither a Bezirksregion nor a Bezirk is assigned");
+            }
+        }
+        //
+        return String.format(KA1_MAP_URL, ka1MapAlias, ka1TopicId);
+    }
+
+    private String uriPostfix(String uri, String uriPrefix, String entityName) {
+        if (!uri.startsWith(uriPrefix)) {
+            throw new RuntimeException("The " + entityName + " URI does not start with \"" + uriPrefix +
+                "\" but is \"" + uri + "\"");
+        }
+        //
+        return uri.substring(uriPrefix.length());
     }
 }
