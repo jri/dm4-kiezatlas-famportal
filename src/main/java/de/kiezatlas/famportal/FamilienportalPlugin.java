@@ -79,6 +79,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
 
 
+    // --- Retrieval API ---
+
     @GET
     @Path("/geoobject")
     @Override
@@ -111,7 +113,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         }
     }
 
-    // ---
+    // --- Redationalwerkzeug ---
 
     @PUT
     @Path("/category/{id}")
@@ -139,6 +141,18 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         for (long geoObjectId : geoObjectIds) {
             facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
         }
+    }
+
+    @GET
+    @Path("/count")
+    @Override
+    public GeoObjectCount countAssignments() {
+        GeoObjectCount count = new GeoObjectCount();
+        for (Topic famportalCategory : dms.getTopics(FAMPORTAL_CATEGORY_URI, false, 0).getItems()) {
+            long famCatId = famportalCategory.getId();
+            count.addCount(famCatId, kiezatlasService.getGeoObjectsByCategory(famCatId).size());
+        }
+        return count;
     }
 
 

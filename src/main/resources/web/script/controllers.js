@@ -10,6 +10,11 @@ angular.module("famportal").controller("editorialController", function($scope, f
     famportalService.getFamportalTree(function(famportalTree) {
         console.log("Famportal tree", famportalTree)
         $scope.famportalTree = famportalTree
+        // ### TODO: use q style instead of nesting callbacks
+        famportalService.countAssignments(function(geoObjectCount) {
+            console.log("Geo object count", geoObjectCount)
+            $scope.famportalTree.count = geoObjectCount
+        })
     })
 
     $scope.selectFamportalCategory = function(category) {

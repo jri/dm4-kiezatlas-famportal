@@ -1,7 +1,11 @@
 /*
-    Application model
+    View Model
+    ----------
 
     famportalTree      - Famportal category tree (topic of type "famportal.category" with all child topics)
+        .count {       - For each category: the count of assigned Geo Objects
+            "cat-<id>": <count>
+        }
 
     famportalCategory  - Selected Famportal category (topic of type "famportal.category")
         topic {

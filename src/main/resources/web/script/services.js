@@ -10,7 +10,7 @@ angular.module("famportal").service("famportalService", function($http) {
     }
 
     this.searchGeoObjects = function() {
-        var req = new OrderedRequest()
+        var req = new ClockedRequest()
         return function(searchTerm, callback) {
             req.perform("GET", "/site/geoobject", {search: searchTerm}, callback)
         }
@@ -26,9 +26,13 @@ angular.module("famportal").service("famportalService", function($http) {
             .success(callback)
     }
 
+    this.countAssignments = function(callback) {
+        $http.get("/famportal/count").success(callback)
+    }
+
     // ---
 
-    function OrderedRequest() {
+    function ClockedRequest() {
 
         var clock = 0
 
