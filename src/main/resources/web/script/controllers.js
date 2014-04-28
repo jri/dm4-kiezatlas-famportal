@@ -10,7 +10,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
     famportalService.getFamportalTree(function(famportalTree) {
         console.log("Famportal tree", famportalTree)
         $scope.famportalTree = famportalTree
-        // ### TODO: use q style instead of nesting callbacks
+        // ### TODO: use q style instead of nested callbacks
         famportalService.countAssignments(function(geoObjectCount) {
             console.log("Geo object count", geoObjectCount)
             $scope.famportalTree.count = geoObjectCount
@@ -61,10 +61,12 @@ angular.module("famportal").controller("editorialController", function($scope, f
     // ---
 
     function updateGeoObjects() {
-        famportalService.getGeoObjectsByCategory($scope.famportalCategory.id, function(geoObjects) {
-            console.log("Geo objects for Famportal category", $scope.famportalCategory.id, geoObjects)
+        var famportalCatId = $scope.famportalCategory.id
+        famportalService.getGeoObjectsByCategory(famportalCatId, function(geoObjects) {
+            console.log("Geo objects for Famportal category", famportalCatId, geoObjects)
             $scope.geoObjects = geoObjects
             $scope.geoObjects.selectedCount = 0
+            $scope.famportalTree.count["cat-" + famportalCatId] = geoObjects.length
         })
     }
 
