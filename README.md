@@ -6,6 +6,15 @@ DeepaMehta 4 Kiezatlas - Familienportal
 Version History
 ---------------
 
+**0.3** -- Apr 29, 2014
+
+* API for retieving Kiezatlas objects based on Familienportal category.
+* Search requires at least 2 characters (reduced server load).
+* Familienportal tree: display per-category object count.
+* Kiezatlas search result: display per-category object count.
+* As presented at Apr 29, 2014 at Familienbeirat.
+* Compatible with DeepaMehta 4.3-SNAPSHOT
+
 **0.2** -- Apr 10, 2014
 
 * Real Familienportal category tree (5 levels).
@@ -26,4 +35,4 @@ Version History
 
 ------------
 Jörg Richter  
-Apr 21, 2014
+Apr 29, 2014
