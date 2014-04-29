@@ -37,7 +37,7 @@
             'one': 'ist 1 Kiezatlas Objekt zugeordnet:',
             'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
         <ul>
-            <li ng-repeat="geoObject in geoObjects">
+            <li ng-repeat="geoObject in geoObjects | orderBy:'value'">
                 <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()"> {{geoObject.value}}
             </li>
         </ul>
