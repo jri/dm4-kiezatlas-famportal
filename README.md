@@ -8,10 +8,11 @@ Version History
 
 **0.3** -- Apr 29, 2014
 
-* API for retieving Kiezatlas objects based on Familienportal category.
-* Search requires at least 2 characters (reduced server load).
-* Familienportal tree: display per-category object count.
-* Kiezatlas search result: display per-category object count.
+* API for retrieving Kiezatlas objects based on Familienportal category.
+* Redaktionswerkzeug:
+    * Search requires at least 2 characters (reduced server load).
+    * Familienportal tree: display per-category object count.
+    * Kiezatlas search result: display per-category object count.
 * As presented at Apr 29, 2014 at Familienbeirat.
 * Compatible with DeepaMehta 4.3-SNAPSHOT
 
