@@ -220,7 +220,11 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     private GeoCoordinate geoCoordinate(Topic geoObjectTopic) {
         Topic address = geoObjectTopic.getCompositeValue().getTopic("dm4.contacts.address");
-        return geomapsService.getGeoCoordinate(address);
+        GeoCoordinate geoCoord = geomapsService.getGeoCoordinate(address);
+        if (geoCoord == null) {
+            throw new RuntimeException("Geo coordinate is unknown");
+        }
+        return geoCoord;
     }
 
     private String link(Topic geoObjectTopic) {
