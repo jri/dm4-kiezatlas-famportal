@@ -67,7 +67,10 @@
                     <li ng-repeat="categoryResult in criteriaResult.categories | orderBy:'category.value'" ng-style="{'list-style-type': categoryResult.geo_objects.length ? 'none' : 'inherit'}">
                         <img class="expansion-handle" ng-if="categoryResult.geo_objects" ng-src="{{'/de.kiezatlas.famportal/images/' + (categoryResult.expanded ? 'expanded.png' : 'collapsed.png')}}" ng-click="categoryResult.expanded = !categoryResult.expanded">
                         {{categoryResult.category.value}}
-                        <input type="checkbox" ng-if="categoryResult.geo_objects" ng-model="categoryResult.include" ng-change="selectKiezatlasCategory()">
+                        <span ng-if="categoryResult.geo_objects">
+                            <input type="checkbox" ng-model="categoryResult.include" ng-change="selectKiezatlasCategory()">
+                            ({{categoryResult.geo_objects.length}})
+                        </span>
                         <ul ng-show="categoryResult.expanded">
                             <li ng-repeat="geoObject in categoryResult.geo_objects | orderBy:'value'">
                                 {{geoObject.value}}
