@@ -32,17 +32,17 @@
 <div>
     <div ng-if="famportalCategory">
         <h3>Zugeordnete Kiezatlas Objekte</h3>
-        Kategorie <b>{{famportalCategory.value}}</b> <ng-pluralize count="geoObjects.length" when="{
+        Kategorie <b>{{famportalCategory.value}}</b> <ng-pluralize count="assignedObjects.length" when="{
             0: 'sind keine Kiezatlas Objekte zugeordnet.',
             'one': 'ist 1 Kiezatlas Objekt zugeordnet:',
             'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
         <ul>
-            <li ng-repeat="geoObject in geoObjects | orderBy:'value'">
+            <li ng-repeat="geoObject in assignedObjects | orderBy:'value'">
                 <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()"> {{geoObject.value}}
             </li>
         </ul>
-        <button ng-click="deleteAssignments()" ng-if="geoObjects" ng-disabled="!geoObjects.selectedCount">
-            <ng-pluralize count="geoObjects.selectedCount" when="{
+        <button ng-click="deleteAssignments()" ng-if="assignedObjects" ng-disabled="!assignedObjects.selectedCount">
+            <ng-pluralize count="assignedObjects.selectedCount" when="{
                 '0': 'Zuordnung entfernen',
                 'one': '1 Zuordnung entfernen',
                 'other': '{} Zuordnungen entfernen'}"></ng-pluralize>
@@ -60,6 +60,13 @@
         <h3>Kiezatlas Objekte suchen</h3>
         <input type="text" ng-model="searchTerm" ng-keyup="searchGeoObjects()">
         <p ng-if="searchResult === null">Gebe mindestens {{config.MIN_SEARCH_TERM_LENGTH}} Buchstaben ein</p>
+        <h4 ng-if="geoObjects != null">Kiezatlas Objekte ({{geoObjects.length}})</h4>
+        <ul>
+            <li ng-repeat="geoObject in geoObjects | orderBy:'value'">
+                {{geoObject.value}}
+            </li>
+        </ul>
+        <h4 ng-if="searchResult != null">Kategorien</h4>
         <ul>
             <li ng-repeat="criteriaResult in searchResult | orderBy:'criteria.value'">
                 {{criteriaResult.criteria.value}}

@@ -11,7 +11,7 @@
         topic {
         }
 
-    geoObjects         - Geo Objects assigned to selected Famportal category (middle box)
+    assignedObjects    - Geo Objects assigned to selected Famportal category (middle box)
         [
             topic {
             }.selected (boolean)
@@ -19,7 +19,9 @@
 
     searchTerm         - The term entered in the search field (right box)
 
-    searchResult       - Found Geo Objects, grouped by 1) KA criteria and 2) KA category
+    geoObjects         - Found Geo Objects (by name)
+
+    searchResult       - Found Geo Objects (by category), grouped by 1) KA criteria and 2) KA category
         criteriaResults [{
             criteria: {
             }

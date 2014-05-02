@@ -23,7 +23,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
     }
 
     $scope.selectGeoObject = function() {
-        $scope.geoObjects.selectedCount = selectedIds($scope.geoObjects).length
+        $scope.assignedObjects.selectedCount = selectedIds($scope.assignedObjects).length
     }
 
     $scope.selectKiezatlasCategory = function() {
@@ -33,13 +33,18 @@ angular.module("famportal").controller("editorialController", function($scope, f
     $scope.searchGeoObjects = function() {
         var searchTerm = $scope.searchTerm
         if (searchTerm.length >= $scope.config.MIN_SEARCH_TERM_LENGTH) {
+            famportalService.searchGeoObjects(searchTerm, function(geoObjects) {
+                console.log("Geo objects (by name) with", searchTerm, geoObjects)
+                $scope.geoObjects = geoObjects.items
+            })
             famportalService.searchCategories(searchTerm, function(searchResult) {
-                console.log("Geo objects with", searchTerm, searchResult)
+                console.log("Geo objects (by category) with", searchTerm, searchResult)
                 $scope.searchResult = searchResult.items
                 initSearchResult($scope.searchResult)
                 updateStats($scope.searchResult)
             })
         } else {
+            $scope.geoObjects = null
             $scope.searchResult = null
         }
     }
@@ -53,7 +58,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
 
     $scope.deleteAssignments = function() {
         var famportalCatId = $scope.famportalCategory.id
-        var geoObjectIds = selectedIds($scope.geoObjects)
+        var geoObjectIds = selectedIds($scope.assignedObjects)
         console.log("Removing Famportal category", famportalCatId, "from geo objects", geoObjectIds)
         famportalService.deleteAssignments(famportalCatId, geoObjectIds, updateGeoObjects)
     }
@@ -64,8 +69,8 @@ angular.module("famportal").controller("editorialController", function($scope, f
         var famportalCatId = $scope.famportalCategory.id
         famportalService.getGeoObjectsByCategory(famportalCatId, function(geoObjects) {
             console.log("Geo objects for Famportal category", famportalCatId, geoObjects)
-            $scope.geoObjects = geoObjects
-            $scope.geoObjects.selectedCount = 0
+            $scope.assignedObjects = geoObjects
+            $scope.assignedObjects.selectedCount = 0
             $scope.famportalTree.count["cat-" + famportalCatId] = geoObjects.length
         })
     }
