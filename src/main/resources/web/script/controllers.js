@@ -33,7 +33,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
     $scope.searchGeoObjects = function() {
         var searchTerm = $scope.searchTerm
         if (searchTerm.length >= $scope.config.MIN_SEARCH_TERM_LENGTH) {
-            famportalService.searchGeoObjects(searchTerm, function(searchResult) {
+            famportalService.searchCategories(searchTerm, function(searchResult) {
                 console.log("Geo objects with", searchTerm, searchResult)
                 $scope.searchResult = searchResult.items
                 initSearchResult($scope.searchResult)

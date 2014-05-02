@@ -9,10 +9,10 @@ angular.module("famportal").service("famportalService", function($http) {
         $http.get("/site/category/" + famportalCatId + "/objects").success(callback)
     }
 
-    this.searchGeoObjects = function() {
+    this.searchCategories = function() {
         var req = new ClockedRequest()
         return function(searchTerm, callback) {
-            req.perform("GET", "/site/geoobject", {search: searchTerm}, callback)
+            req.perform("GET", "/site/category/objects", {search: searchTerm}, callback)
         }
     }()
 
