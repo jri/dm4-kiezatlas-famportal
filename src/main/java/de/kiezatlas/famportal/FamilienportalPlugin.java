@@ -119,7 +119,19 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Path("/category/{id}")
     @Override
     public void createAssignments(@PathParam("id") long famportalCategoryId,
-                                  @QueryParam("ka_cat") List<Long> kiezatlasCategoryIds) {
+                                  @QueryParam("geo_object") List<Long> geoObjectIds) {
+        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
+        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(famportalCategoryId);
+        for (long geoObjectId : geoObjectIds) {
+            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
+        }
+    }
+
+    @PUT
+    @Path("/category/{id}/ka_cat")
+    @Override
+    public void createAssignmentsByCategories(@PathParam("id") long famportalCategoryId,
+                                              @QueryParam("ka_cat") List<Long> kiezatlasCategoryIds) {
         // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
         FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(famportalCategoryId);
         for (long catId : kiezatlasCategoryIds) {

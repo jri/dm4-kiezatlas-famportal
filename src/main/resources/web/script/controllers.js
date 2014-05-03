@@ -22,8 +22,12 @@ angular.module("famportal").controller("editorialController", function($scope, f
         updateGeoObjects()
     }
 
-    $scope.selectGeoObject = function() {
+    $scope.selectAssignedObject = function() {
         $scope.assignedObjects.selectedCount = selectedIds($scope.assignedObjects).length
+    }
+
+    $scope.selectGeoObject = function() {
+        $scope.geoObjects.selectedCount = selectedIds($scope.geoObjects).length
     }
 
     $scope.selectKiezatlasCategory = function() {
@@ -36,6 +40,8 @@ angular.module("famportal").controller("editorialController", function($scope, f
             famportalService.searchGeoObjects(searchTerm, function(geoObjects) {
                 console.log("Geo objects (by name) with", searchTerm, geoObjects)
                 $scope.geoObjects = geoObjects.items
+                $scope.geoObjects.selectedCount = geoObjects.items.length
+                initGeoObjects($scope.geoObjects)
             })
             famportalService.searchCategories(searchTerm, function(searchResult) {
                 console.log("Geo objects (by category) with", searchTerm, searchResult)
@@ -51,9 +57,16 @@ angular.module("famportal").controller("editorialController", function($scope, f
 
     $scope.createAssignments = function() {
         var famportalCatId = $scope.famportalCategory.id
+        var geoObjectIds = selectedIds($scope.geoObjects)
+        console.log("Assigning Famportal category", famportalCatId, "to geo objects", geoObjectIds)
+        famportalService.createAssignments(famportalCatId, geoObjectIds, updateGeoObjects)
+    }
+
+    $scope.createAssignmentsByCategories = function() {
+        var famportalCatId = $scope.famportalCategory.id
         var kiezatlasCatIds = categoryIds($scope.searchResult)
         console.log("Assigning Famportal category", famportalCatId, "to Kiezatlas categories", kiezatlasCatIds)
-        famportalService.createAssignments(famportalCatId, kiezatlasCatIds, updateGeoObjects)
+        famportalService.createAssignmentsByCategories(famportalCatId, kiezatlasCatIds, updateGeoObjects)
     }
 
     $scope.deleteAssignments = function() {
@@ -85,11 +98,17 @@ angular.module("famportal").controller("editorialController", function($scope, f
         return selected
     }
 
+    function initGeoObjects(geoObjects) {
+        angular.forEach(geoObjects, function(geoObject) {
+            geoObject.selected = true
+        })
+    }
+
     function initSearchResult(searchResult) {
         angular.forEach(searchResult, function(criteriaResult) {
             angular.forEach(criteriaResult.categories, function(categoryResult) {
                 if (categoryResult.geo_objects.length) {
-                    categoryResult.include = true
+                    categoryResult.selected = true
                 }
             })
         })
@@ -104,7 +123,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
         angular.forEach(searchResult, function(criteriaResult) {
             categoryCount += criteriaResult.categories.length
             angular.forEach(criteriaResult.categories, function(categoryResult) {
-                if (categoryResult.include) {
+                if (categoryResult.selected) {
                     geoObjectCount += categoryResult.geo_objects.length
                 }
             })
@@ -118,7 +137,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
         var categoryIds = []
         angular.forEach(searchResult, function(criteriaResult) {
             angular.forEach(criteriaResult.categories, function(categoryResult) {
-                if (categoryResult.include) {
+                if (categoryResult.selected) {
                     categoryIds.push(categoryResult.category.id)
                 }
             })

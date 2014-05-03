@@ -23,8 +23,13 @@ angular.module("famportal").service("famportalService", function($http) {
         }
     }()
 
-    this.createAssignments = function(famportalCatId, kiezatlasCatIds, callback) {
-        $http.put("/famportal/category/" + famportalCatId + "?" + queryString("ka_cat", kiezatlasCatIds))
+    this.createAssignments = function(famportalCatId, geoObjectIds, callback) {
+        $http.put("/famportal/category/" + famportalCatId + "?" + queryString("geo_object", geoObjectIds))
+            .success(callback)
+    }
+
+    this.createAssignmentsByCategories = function(famportalCatId, kiezatlasCatIds, callback) {
+        $http.put("/famportal/category/" + famportalCatId + "/ka_cat?" + queryString("ka_cat", kiezatlasCatIds))
             .success(callback)
     }
 

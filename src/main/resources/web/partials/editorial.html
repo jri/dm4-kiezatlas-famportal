@@ -38,7 +38,7 @@
             'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
         <ul>
             <li ng-repeat="geoObject in assignedObjects | orderBy:'value'">
-                <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()"> {{geoObject.value}}
+                <input type="checkbox" ng-model="geoObject.selected" ng-change="selectAssignedObject()"> {{geoObject.value}}
             </li>
         </ul>
         <button ng-click="deleteAssignments()" ng-if="assignedObjects" ng-disabled="!assignedObjects.selectedCount">
@@ -63,9 +63,15 @@
         <h4 ng-if="geoObjects != null">Kiezatlas Objekte ({{geoObjects.length}})</h4>
         <ul>
             <li ng-repeat="geoObject in geoObjects | orderBy:'value'">
-                {{geoObject.value}}
+                <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()"> {{geoObject.value}}
             </li>
         </ul>
+        <p ng-if="geoObjects">
+            {{geoObjects.selectedCount}} Kiezatlas Objekte ausgewählt
+        </p>
+        <button ng-click="createAssignments()" ng-if="geoObjects" ng-disabled="!famportalCategory || !geoObjects.selectedCount">
+            Zu Kategorie <b>{{famportalCategory.value}}</b> zuordnen
+        </button>
         <h4 ng-if="searchResult != null">Kategorien</h4>
         <ul>
             <li ng-repeat="criteriaResult in searchResult | orderBy:'criteria.value'">
@@ -75,7 +81,7 @@
                         <img class="expansion-handle" ng-if="categoryResult.geo_objects" ng-src="{{'/de.kiezatlas.famportal/images/' + (categoryResult.expanded ? 'expanded.png' : 'collapsed.png')}}" ng-click="categoryResult.expanded = !categoryResult.expanded">
                         {{categoryResult.category.value}}
                         <span ng-if="categoryResult.geo_objects">
-                            <input type="checkbox" ng-model="categoryResult.include" ng-change="selectKiezatlasCategory()">
+                            <input type="checkbox" ng-model="categoryResult.selected" ng-change="selectKiezatlasCategory()">
                             ({{categoryResult.geo_objects.length}})
                         </span>
                         <ul ng-show="categoryResult.expanded">
@@ -92,7 +98,7 @@
             {{searchResult.stats.categoryCount}} Kategorien, aus
             {{searchResult.stats.criteriaCount}} Kriterien)
         </p>
-        <button ng-click="createAssignments()" ng-if="searchResult" ng-disabled="!famportalCategory || !searchResult.stats.geoObjectCount">
+        <button ng-click="createAssignmentsByCategories()" ng-if="searchResult" ng-disabled="!famportalCategory || !searchResult.stats.geoObjectCount">
             Zu Kategorie <b>{{famportalCategory.value}}</b> zuordnen
         </button>
     </div>

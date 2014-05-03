@@ -17,7 +17,9 @@ public interface FamilienportalService extends PluginService {
 
     // --- Redationalwerkzeug ---
 
-    void createAssignments(long famportalCategoryId, List<Long> kiezatlasCategoryIds);
+    void createAssignments(long famportalCategoryId, List<Long> geoObjectIds);
+
+    void createAssignmentsByCategories(long famportalCategoryId, List<Long> kiezatlasCategoryIds);
 
     void deleteAssignments(long famportalCategoryId, List<Long> geoObjectIds);
 

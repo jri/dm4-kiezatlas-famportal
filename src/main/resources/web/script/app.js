@@ -1,6 +1,9 @@
 /*
     View Model
-    ----------
+    ==========
+
+    Left Column
+    -----------
 
     famportalTree      - Famportal category tree (topic of type "famportal.category" with all child topics)
         .count {       - For each category: the count of assigned Geo Objects
@@ -11,15 +14,25 @@
         topic {
         }
 
+    Middle Column
+    -------------
+
     assignedObjects    - Geo Objects assigned to selected Famportal category (middle box)
         [
             topic {
             }.selected (boolean)
         ].selectedCount
 
+    Right Column
+    ------------
+
     searchTerm         - The term entered in the search field (right box)
 
     geoObjects         - Found Geo Objects (by name)
+        [
+            topic {
+            }.selected (boolean)
+        ].selectedCount
 
     searchResult       - Found Geo Objects (by category), grouped by 1) KA criteria and 2) KA category
         criteriaResults [{
@@ -31,7 +44,7 @@
                 geo_objects: [{
                 }]
                 expanded: boolean
-                include: boolean
+                selected: boolean
             }]
         }].stats {
         }
