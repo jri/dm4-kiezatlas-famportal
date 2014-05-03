@@ -19,7 +19,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
 
     $scope.selectFamportalCategory = function(category) {
         $scope.famportalCategory = category
-        updateGeoObjects()
+        updateAssignedObjects()
     }
 
     $scope.selectAssignedObject = function() {
@@ -31,7 +31,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
     }
 
     $scope.selectKiezatlasCategory = function() {
-        updateStats($scope.searchResult)
+        updateSelectedCount($scope.searchResult)
     }
 
     $scope.searchGeoObjects = function() {
@@ -47,7 +47,7 @@ angular.module("famportal").controller("editorialController", function($scope, f
                 console.log("Geo objects (by category) with", searchTerm, searchResult)
                 $scope.searchResult = searchResult.items
                 initSearchResult($scope.searchResult)
-                updateStats($scope.searchResult)
+                updateSelectedCount($scope.searchResult)
             })
         } else {
             $scope.geoObjects = null
@@ -59,26 +59,26 @@ angular.module("famportal").controller("editorialController", function($scope, f
         var famportalCatId = $scope.famportalCategory.id
         var geoObjectIds = selectedIds($scope.geoObjects)
         console.log("Assigning Famportal category", famportalCatId, "to geo objects", geoObjectIds)
-        famportalService.createAssignments(famportalCatId, geoObjectIds, updateGeoObjects)
+        famportalService.createAssignments(famportalCatId, geoObjectIds, updateAssignedObjects)
     }
 
     $scope.createAssignmentsByCategories = function() {
         var famportalCatId = $scope.famportalCategory.id
         var kiezatlasCatIds = categoryIds($scope.searchResult)
         console.log("Assigning Famportal category", famportalCatId, "to Kiezatlas categories", kiezatlasCatIds)
-        famportalService.createAssignmentsByCategories(famportalCatId, kiezatlasCatIds, updateGeoObjects)
+        famportalService.createAssignmentsByCategories(famportalCatId, kiezatlasCatIds, updateAssignedObjects)
     }
 
     $scope.deleteAssignments = function() {
         var famportalCatId = $scope.famportalCategory.id
         var geoObjectIds = selectedIds($scope.assignedObjects)
         console.log("Removing Famportal category", famportalCatId, "from geo objects", geoObjectIds)
-        famportalService.deleteAssignments(famportalCatId, geoObjectIds, updateGeoObjects)
+        famportalService.deleteAssignments(famportalCatId, geoObjectIds, updateAssignedObjects)
     }
 
     // ---
 
-    function updateGeoObjects() {
+    function updateAssignedObjects() {
         var famportalCatId = $scope.famportalCategory.id
         famportalService.getGeoObjectsByCategory(famportalCatId, function(geoObjects) {
             console.log("Geo objects for Famportal category", famportalCatId, geoObjects)
@@ -105,7 +105,9 @@ angular.module("famportal").controller("editorialController", function($scope, f
     }
 
     function initSearchResult(searchResult) {
+        var categoryCount = 0
         angular.forEach(searchResult, function(criteriaResult) {
+            categoryCount += criteriaResult.categories.length
             angular.forEach(criteriaResult.categories, function(categoryResult) {
                 if (categoryResult.geo_objects.length) {
                     categoryResult.selected = true
@@ -113,24 +115,19 @@ angular.module("famportal").controller("editorialController", function($scope, f
             })
         })
         //
-        searchResult.stats = {}
+        searchResult.categoryCount = categoryCount
     }
 
-    function updateStats(searchResult) {
-        var criteriaCount  = searchResult.length
-        var categoryCount  = 0
-        var geoObjectCount = 0
+    function updateSelectedCount(searchResult) {
+        var selectedCount = 0
         angular.forEach(searchResult, function(criteriaResult) {
-            categoryCount += criteriaResult.categories.length
             angular.forEach(criteriaResult.categories, function(categoryResult) {
                 if (categoryResult.selected) {
-                    geoObjectCount += categoryResult.geo_objects.length
+                    selectedCount += categoryResult.geo_objects.length
                 }
             })
         })
-        searchResult.stats.criteriaCount  = criteriaCount
-        searchResult.stats.categoryCount  = categoryCount
-        searchResult.stats.geoObjectCount = geoObjectCount
+        searchResult.selectedCount = selectedCount
     }
 
     function categoryIds(searchResult) {

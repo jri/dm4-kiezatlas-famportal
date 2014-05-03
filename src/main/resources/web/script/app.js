@@ -46,8 +46,8 @@
                 expanded: boolean
                 selected: boolean
             }]
-        }].stats {
-        }
+        }].categoryCount
+          .selectedCount
 */
 angular.module("famportal", ["ngRoute"]).config(function($routeProvider) {
     console.log("Configuring routes")
