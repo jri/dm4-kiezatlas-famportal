@@ -36,17 +36,20 @@
             0: 'sind keine Kiezatlas Objekte zugeordnet.',
             'one': 'ist 1 Kiezatlas Objekt zugeordnet:',
             'other': 'sind {} Kiezatlas Objekte zugeordnet:'}"></ng-pluralize>
-        <ul>
-            <li ng-repeat="geoObject in assignedObjects | orderBy:'value'">
-                <input type="checkbox" ng-model="geoObject.selected" ng-change="selectAssignedObject()"> {{geoObject.value}}
-            </li>
-        </ul>
-        <button ng-click="deleteAssignments()" ng-if="assignedObjects" ng-disabled="!assignedObjects.selectedCount">
-            <ng-pluralize count="assignedObjects.selectedCount" when="{
-                '0': 'Zuordnung entfernen',
-                'one': '1 Zuordnung entfernen',
-                'other': '{} Zuordnungen entfernen'}"></ng-pluralize>
-        </button>
+        <div ng-if="assignedObjects">
+            <ul>
+                <li ng-repeat="geoObject in assignedObjects | orderBy:'value'">
+                    <input type="checkbox" ng-model="geoObject.selected" ng-change="selectAssignedObject()"> {{geoObject.value}}
+                </li>
+            </ul>
+            <p>
+                {{assignedObjects.selectedCount}} Kiezatlas Objekte ausgewählt
+            </p>
+            <button ng-click="deleteAssignments()" ng-disabled="!assignedObjects.selectedCount">
+                <img ng-src="{{'/de.kiezatlas.famportal/images/' + (!assignedObjects.selectedCount ? 'minus-disabled.png' : 'minus.png')}}">
+                Von Kategorie <b>{{famportalCategory.value}}</b> entfernen
+            </button>
+        </div>
     </div>
     <div ng-if="!famportalCategory">
         <br /><br /><br /><br />
@@ -72,11 +75,12 @@
                 {{geoObjects.selectedCount}} Kiezatlas Objekte ausgewählt
             </p>
             <button ng-click="createAssignments()" ng-disabled="!famportalCategory || !geoObjects.selectedCount">
+                <img ng-src="{{'/de.kiezatlas.famportal/images/' + (!famportalCategory || !geoObjects.selectedCount ? 'plus-disabled.png' : 'plus.png')}}">
                 Zu Kategorie <b>{{famportalCategory.value}}</b> hinzufügen
             </button>
         </div>
         <!-- by category -->
-        <h4 ng-if="searchResult != null">Kategorien ({{searchResult.categoryCount}})</h4>
+        <h4 ng-if="searchResult != null">Kiezatlas Kategorien ({{searchResult.categoryCount}})</h4>
         <div ng-if="searchResult">
             <p>... aus {{searchResult.length}} Kriterien:</p>
             <ul>
@@ -103,6 +107,7 @@
                 {{searchResult.selectedCount}} Kiezatlas Objekte ausgewählt
             </p>
             <button ng-click="createAssignmentsByCategories()" ng-disabled="!famportalCategory || !searchResult.selectedCount">
+                <img ng-src="{{'/de.kiezatlas.famportal/images/' + (!famportalCategory || !searchResult.selectedCount ? 'plus-disabled.png' : 'plus.png')}}">
                 Zu Kategorie <b>{{famportalCategory.value}}</b> hinzufügen
             </button>
         </div>
