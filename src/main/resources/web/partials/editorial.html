@@ -110,6 +110,11 @@
                 <img ng-src="{{'/de.kiezatlas.famportal/images/' + (!famportalCategory || !searchResult.selectedCount ? 'plus-disabled.png' : 'plus.png')}}">
                 Zu Kategorie <b>{{famportalCategory.value}}</b> hinzufügen
             </button>
+            <br /><br />
+            <button ng-click="deleteAssignmentsByCategories()" ng-disabled="!famportalCategory || !searchResult.selectedCount">
+                <img ng-src="{{'/de.kiezatlas.famportal/images/' + (!famportalCategory || !searchResult.selectedCount ? 'minus-disabled.png' : 'minus.png')}}">
+                Von Kategorie <b>{{famportalCategory.value}}</b> entfernen
+            </button>
         </div>
     </div>
 </div>

@@ -76,6 +76,13 @@ angular.module("famportal").controller("editorialController", function($scope, f
         famportalService.deleteAssignments(famportalCatId, geoObjectIds, updateAssignedObjects)
     }
 
+    $scope.deleteAssignmentsByCategories = function() {
+        var famportalCatId = $scope.famportalCategory.id
+        var kiezatlasCatIds = categoryIds($scope.searchResult)
+        console.log("Removing Famportal category", famportalCatId, "from Kiezatlas categories", kiezatlasCatIds)
+        famportalService.deleteAssignmentsByCategories(famportalCatId, kiezatlasCatIds, updateAssignedObjects)
+    }
+
     // ---
 
     function updateAssignedObjects() {

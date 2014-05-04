@@ -8,19 +8,17 @@ import de.deepamehta.plugins.facets.model.FacetValue;
 import de.deepamehta.plugins.geomaps.service.GeomapsService;
 import de.deepamehta.plugins.geomaps.model.GeoCoordinate;
 
-import de.deepamehta.core.AssociationDefinition;
 import de.deepamehta.core.RelatedTopic;
 import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.osgi.PluginActivator;
+import de.deepamehta.core.service.Directives;
 import de.deepamehta.core.service.PluginService;
 import de.deepamehta.core.service.annotation.ConsumesService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
-import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -120,11 +118,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Override
     public void createAssignments(@PathParam("id") long famportalCategoryId,
                                   @QueryParam("geo_object") List<Long> geoObjectIds) {
-        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
-        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(famportalCategoryId);
-        for (long geoObjectId : geoObjectIds) {
-            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
-        }
+        updateFacet(geoObjectIds, createFacetValue(famportalCategoryId));
     }
 
     @PUT
@@ -132,28 +126,28 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @Override
     public void createAssignmentsByCategories(@PathParam("id") long famportalCategoryId,
                                               @QueryParam("ka_cat") List<Long> kiezatlasCategoryIds) {
-        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
-        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(famportalCategoryId);
-        for (long catId : kiezatlasCategoryIds) {
-            List<RelatedTopic> geoObjects = kiezatlasService.getGeoObjectsByCategory(catId);
-            for (Topic geoObject : geoObjects) {
-                facetsService.updateFacet(geoObject, FAMPORTAL_CATEGORY_FACET_URI, value, null, null);
-                                                                               // clientState=null, directives=null
-            }
-        }
+        updateFacetByCategories(kiezatlasCategoryIds, createFacetValue(famportalCategoryId));
     }
+
+    // ---
 
     @DELETE
     @Path("/category/{id}")
     @Override
     public void deleteAssignments(@PathParam("id") long famportalCategoryId,
                                   @QueryParam("geo_object") List<Long> geoObjectIds) {
-        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
-        FacetValue value = new FacetValue(FAMPORTAL_CATEGORY_URI).addDeletionRef(famportalCategoryId);
-        for (long geoObjectId : geoObjectIds) {
-            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
-        }
+        updateFacet(geoObjectIds, createDeletionFacetValue(famportalCategoryId));
     }
+
+    @DELETE
+    @Path("/category/{id}/ka_cat")
+    @Override
+    public void deleteAssignmentsByCategories(@PathParam("id") long famportalCategoryId,
+                                              @QueryParam("ka_cat") List<Long> kiezatlasCategoryIds) {
+        updateFacetByCategories(kiezatlasCategoryIds, createDeletionFacetValue(famportalCategoryId));
+    }
+
+    // ---
 
     @GET
     @Path("/count")
@@ -267,5 +261,35 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         }
         //
         return uri.substring(uriPrefix.length());
+    }
+
+    // --- Update Famportal Category facet ---
+
+    private FacetValue createFacetValue(long famportalCategoryId) {
+        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
+        return new FacetValue(FAMPORTAL_CATEGORY_URI).addRef(famportalCategoryId);
+    }
+
+    private FacetValue createDeletionFacetValue(long famportalCategoryId) {
+        // Prerequisite: categories are modeled per 1) Aggregation Def, 2) Cardinality Many
+        return new FacetValue(FAMPORTAL_CATEGORY_URI).addDeletionRef(famportalCategoryId);
+    }
+
+    // ---
+
+    private void updateFacet(List<Long> geoObjectIds, FacetValue value) {
+        for (long geoObjectId : geoObjectIds) {
+            facetsService.updateFacet(geoObjectId, FAMPORTAL_CATEGORY_FACET_URI, value, null);  // clientState=null
+        }
+    }
+
+    private void updateFacetByCategories(List<Long> kiezatlasCategoryIds, FacetValue value) {
+        for (long catId : kiezatlasCategoryIds) {
+            List<RelatedTopic> geoObjects = kiezatlasService.getGeoObjectsByCategory(catId);
+            for (Topic geoObject : geoObjects) {
+                facetsService.updateFacet(geoObject, FAMPORTAL_CATEGORY_FACET_URI, value, null, new Directives());
+                                                                                                // clientState=null
+            }
+        }
     }
 }

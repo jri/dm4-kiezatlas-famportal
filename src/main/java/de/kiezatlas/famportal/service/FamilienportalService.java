@@ -21,7 +21,13 @@ public interface FamilienportalService extends PluginService {
 
     void createAssignmentsByCategories(long famportalCategoryId, List<Long> kiezatlasCategoryIds);
 
+    // ---
+
     void deleteAssignments(long famportalCategoryId, List<Long> geoObjectIds);
+
+    void deleteAssignmentsByCategories(long famportalCategoryId, List<Long> kiezatlasCategoryIds);
+
+    // ---
 
     GeoObjectCount countAssignments();
 }

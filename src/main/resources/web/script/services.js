@@ -38,6 +38,11 @@ angular.module("famportal").service("famportalService", function($http) {
             .success(callback)
     }
 
+    this.deleteAssignmentsByCategories = function(famportalCatId, kiezatlasCatIds, callback) {
+        $http.delete("/famportal/category/" + famportalCatId + "/ka_cat?" + queryString("ka_cat", kiezatlasCatIds))
+            .success(callback)
+    }
+
     this.countAssignments = function(callback) {
         $http.get("/famportal/count").success(callback)
     }
