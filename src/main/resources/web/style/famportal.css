@@ -51,6 +51,15 @@ html[ng-app] > body {
     margin-left: -18px;
 }
 
+#details-overlay {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    background-color: white;
+    opacity: 0.8;
+    padding: 1em;
+}
+
 #loading-widget {
     position: absolute;
     top: 48%;

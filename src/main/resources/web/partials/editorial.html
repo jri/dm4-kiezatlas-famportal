@@ -39,7 +39,8 @@
         <div ng-if="assignedObjects">
             <ul>
                 <li ng-repeat="geoObject in assignedObjects | orderBy:'value'">
-                    <input type="checkbox" ng-model="geoObject.selected" ng-change="selectAssignedObject()"> {{geoObject.value}}
+                    <input type="checkbox" ng-model="geoObject.selected" ng-change="selectAssignedObject()">
+                    <a href="" ng-click="showDetails(geoObject.id)">{{geoObject.value}}</a>
                 </li>
             </ul>
             <p>
@@ -118,3 +119,5 @@
         </div>
     </div>
 </div>
+
+<ng-include src="'/de.kiezatlas.famportal/partials/details.html'">

@@ -1,4 +1,4 @@
-angular.module("famportal").controller("editorialController", function($scope, famportalService) {
+angular.module("famportal").controller("editorialController", function($scope, $sce, famportalService) {
 
     $scope.config = {
         MIN_SEARCH_TERM_LENGTH: 2
@@ -32,6 +32,24 @@ angular.module("famportal").controller("editorialController", function($scope, f
 
     $scope.selectKiezatlasCategory = function() {
         updateSelectedCount($scope.searchResult)
+    }
+
+    $scope.showDetails = function(geoObjectId) {
+        var FACET_TYPE_URIS = [
+            "ka2.kontakt.facet",
+            "ka2.website.facet",
+            "ka2.beschreibung.facet",
+            "ka2.oeffnungszeiten.facet",
+            "ka2.traeger.facet"
+        ];
+        famportalService.getFacettedTopic(geoObjectId, FACET_TYPE_URIS, function(geoObject) {
+            console.log("Detail geo object", geoObject)
+            // trust user provided HTML
+            geoObject.composite['ka2.beschreibung'].value =
+                $sce.trustAsHtml(geoObject.composite['ka2.beschreibung'].value)
+            //
+            $scope.detailGeoObject = geoObject
+        })
     }
 
     $scope.searchGeoObjects = function() {

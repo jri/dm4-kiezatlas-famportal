@@ -2,6 +2,8 @@
     View Model
     ==========
 
+    detailGeoObject    - 
+
     Left Column
     -----------
 

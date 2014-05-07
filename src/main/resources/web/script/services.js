@@ -9,6 +9,10 @@ angular.module("famportal").service("famportalService", function($http) {
         $http.get("/site/category/" + famportalCatId + "/objects").success(callback)
     }
 
+    this.getFacettedTopic = function(topicId, facetTypeUris, callback) {
+        $http.get("/facet/topic/" + topicId + "?" + queryString("facet_type_uri", facetTypeUris)).success(callback)
+    }
+
     this.searchGeoObjects = function() {
         var req = new ClockedRequest()
         return function(searchTerm, callback) {

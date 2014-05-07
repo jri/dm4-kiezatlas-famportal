@@ -1,0 +1,26 @@
+<div id="details-overlay" ng-if="detailGeoObject">
+    <p>
+        <strong>{{detailGeoObject.value}}</strong>
+    </p>
+    <p ng-init="address=detailGeoObject.composite['dm4.contacts.address'].composite">
+        {{address["dm4.contacts.street"].value}}<br />
+        {{address["dm4.contacts.postal_code"].value}} {{address["dm4.contacts.city"].value}}<br />
+        {{address["dm4.contacts.country"].value}}
+    </p>
+    <p ng-init="kontakt=detailGeoObject.composite['ka2.kontakt'].composite">
+        Telefon:            {{kontakt["ka2.kontakt.telefon"].value}}<br />
+        Fax:                {{kontakt["ka2.kontakt.fax"].value}}<br />
+        Ansprechpartner/in: {{kontakt["ka2.kontakt.ansprechpartner"].value}}<br />
+        Email:              {{kontakt["ka2.kontakt.email"].value}}
+    </p>
+    <p>
+        {{detailGeoObject.composite['dm4.webbrowser.url'].value}}
+    </p>
+    <div ng-bind-html="detailGeoObject.composite['ka2.beschreibung'].value"></div>
+    <p>
+        Öffnungszeiten: {{detailGeoObject.composite['ka2.oeffnungszeiten'].value}}
+    </p>
+    <p ng-init="traeger=detailGeoObject.composite['ka2.traeger'].composite">
+        Träger: {{traeger["ka2.traeger.name"].value}} ({{traeger["ka2.traeger.art"].value}})
+    </p>
+</div>
