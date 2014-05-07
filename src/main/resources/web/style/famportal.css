@@ -56,8 +56,14 @@ html[ng-app] > body {
     top: 20%;
     left: 35%;
     background-color: white;
-    opacity: 0.8;
+    opacity: 0.9;
     padding: 1em;
+}
+
+#details-overlay > img {
+    position: absolute;
+    top: -6px;
+    right: -6px;
 }
 
 #loading-widget {

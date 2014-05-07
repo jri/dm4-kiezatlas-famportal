@@ -52,6 +52,10 @@ angular.module("famportal").controller("editorialController", function($scope, $
         })
     }
 
+    $scope.closeDetails = function() {
+        $scope.detailGeoObject = null
+    }
+
     $scope.searchGeoObjects = function() {
         var searchTerm = $scope.searchTerm
         if (searchTerm.length >= $scope.config.MIN_SEARCH_TERM_LENGTH) {

@@ -2,7 +2,7 @@
     View Model
     ==========
 
-    detailGeoObject    - 
+    detailGeoObject    - The Geo Object whose details are shown
 
     Left Column
     -----------
