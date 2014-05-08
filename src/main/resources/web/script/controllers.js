@@ -45,8 +45,10 @@ angular.module("famportal").controller("editorialController", function($scope, $
         famportalService.getFacettedTopic(geoObjectId, FACET_TYPE_URIS, function(geoObject) {
             console.log("Detail geo object", geoObject)
             // trust user provided HTML
-            geoObject.composite['ka2.beschreibung'].value =
-                $sce.trustAsHtml(geoObject.composite['ka2.beschreibung'].value)
+            if (geoObject.composite['ka2.beschreibung']) {
+                geoObject.composite['ka2.beschreibung'].value =
+                    $sce.trustAsHtml(geoObject.composite['ka2.beschreibung'].value)
+            }
             //
             $scope.detailGeoObject = geoObject
         })
