@@ -25,8 +25,8 @@ html[ng-app] > body {
 
 [ng-view] > div > div {
     position: relative;
-    height: 97%;        /* For unknown reasons the middle column is moved downwards and exceeds the table. */
-    overflow: auto;     /* This applies only to the initial state (when the generic message is displayed). */
+    height: 100%;
+    overflow: auto;
     padding: 1em;
 }
 
