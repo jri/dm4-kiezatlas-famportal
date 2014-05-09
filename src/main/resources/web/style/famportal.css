@@ -25,8 +25,8 @@ html[ng-app] > body {
 
 [ng-view] > div > div {
     position: relative;
-    height: 97%;
-    overflow: auto;
+    height: 97%;        /* For unknown reasons the middle column is moved downwards and exceeds the table. */
+    overflow: auto;     /* This applies only to the initial state (when the generic message is displayed). */
     padding: 1em;
 }
 
@@ -79,6 +79,9 @@ html[ng-app] > body {
 
 #loading-widget {
     position: absolute;
-    top: 48%;
-    left: 48%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
