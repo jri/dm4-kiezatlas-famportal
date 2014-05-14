@@ -69,7 +69,8 @@
         <div ng-if="geoObjects">
             <ul>
                 <li ng-repeat="geoObject in geoObjects | orderBy:'value'">
-                    <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()"> {{geoObject.value}}
+                    <input type="checkbox" ng-model="geoObject.selected" ng-change="selectGeoObject()">
+                    <a href="" ng-click="showDetails(geoObject.id)">{{geoObject.value}}</a>
                 </li>
             </ul>
             <p>
@@ -97,7 +98,7 @@
                             </span>
                             <ul ng-show="categoryResult.expanded">
                                 <li ng-repeat="geoObject in categoryResult.geo_objects | orderBy:'value'">
-                                    {{geoObject.value}}
+                                    <a href="" ng-click="showDetails(geoObject.id)">{{geoObject.value}}</a>
                                 </li>
                             </ul>
                         </li>
