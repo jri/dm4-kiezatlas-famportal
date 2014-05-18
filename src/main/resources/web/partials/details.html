@@ -17,6 +17,13 @@
         <p>
             {{detailGeoObject.composite['dm4.webbrowser.url'].value}}
         </p>
+        <p>
+            <multi-facet child-type-uri="ka2.criteria.thema">Thema</multi-facet>
+            <multi-facet child-type-uri="ka2.criteria.angebot">Angebot</multi-facet>
+            <multi-facet child-type-uri="ka2.criteria.zielgruppe">Zielgruppe</multi-facet>
+            <multi-facet child-type-uri="ka2.criteria.traeger">Träger</multi-facet>
+            <multi-facet child-type-uri="ka2.criteria.ueberregional">Überregional</multi-facet>
+        </p>
         <div ng-bind-html="detailGeoObject.composite['ka2.beschreibung'].value"></div>
         <p>
             Öffnungszeiten: {{detailGeoObject.composite['ka2.oeffnungszeiten'].value}}

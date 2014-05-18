@@ -40,7 +40,13 @@ angular.module("famportal").controller("editorialController", function($scope, $
             "ka2.website.facet",
             "ka2.beschreibung.facet",
             "ka2.oeffnungszeiten.facet",
-            "ka2.traeger.facet"
+            "ka2.traeger.facet",
+            //
+            "ka2.criteria.thema.facet",
+            "ka2.criteria.angebot.facet",
+            "ka2.criteria.zielgruppe.facet",
+            "ka2.criteria.traeger.facet",
+            "ka2.criteria.ueberregional.facet"
         ];
         famportalService.getFacettedTopic(geoObjectId, FACET_TYPE_URIS, function(geoObject) {
             console.log("Detail geo object", geoObject)
