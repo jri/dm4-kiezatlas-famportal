@@ -3,6 +3,9 @@
         <p>
             <strong>{{detailGeoObject.value}}</strong>
         </p>
+        <p>
+            Website: {{detailGeoObject.composite['dm4.webbrowser.url'].value}}
+        </p>
         <p ng-init="address=detailGeoObject.composite['dm4.contacts.address'].composite">
             {{address["dm4.contacts.street"].value}}<br />
             {{address["dm4.contacts.postal_code"].value}} {{address["dm4.contacts.city"].value}}<br />
@@ -15,7 +18,7 @@
             Email:              {{kontakt["ka2.kontakt.email"].value}}
         </p>
         <p>
-            {{detailGeoObject.composite['dm4.webbrowser.url'].value}}
+            Öffnungszeiten: {{detailGeoObject.composite['ka2.oeffnungszeiten'].value}}
         </p>
         <p>
             <multi-facet child-type-uri="ka2.criteria.thema">Thema</multi-facet>
@@ -25,9 +28,6 @@
             <multi-facet child-type-uri="ka2.criteria.ueberregional">Überregional</multi-facet>
         </p>
         <div ng-bind-html="detailGeoObject.composite['ka2.beschreibung'].value"></div>
-        <p>
-            Öffnungszeiten: {{detailGeoObject.composite['ka2.oeffnungszeiten'].value}}
-        </p>
         <p ng-init="traeger=detailGeoObject.composite['ka2.traeger'].composite">
             Träger: {{traeger["ka2.traeger.name"].value}} ({{traeger["ka2.traeger.art"].value}})
         </p>
