@@ -6,6 +6,13 @@ DeepaMehta 4 Kiezatlas - Familienportal
 Version History
 ---------------
 
+**0.5** -- Jun 11, 2014
+
+* Redaktionswerkzeug:
+    * New Familienportal category tree.
+    * Fix: Öffnungszeiten HTML is properly rendered.
+* Compatible with DeepaMehta 4.3
+
 **0.4** -- May 18, 2014
 
 * Redaktionswerkzeug:
@@ -49,4 +56,4 @@ Version History
 
 ------------
 Jörg Richter  
-May 18, 2014
+Jun 11, 2014
