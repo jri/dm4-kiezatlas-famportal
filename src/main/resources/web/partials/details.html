@@ -18,7 +18,8 @@
             Email:              {{kontakt["ka2.kontakt.email"].value}}
         </p>
         <p>
-            Öffnungszeiten: {{detailGeoObject.composite['ka2.oeffnungszeiten'].value}}
+            Öffnungszeiten:<br />
+            <span ng-bind-html="detailGeoObject.composite['ka2.oeffnungszeiten'].value"></span>
         </p>
         <p>
             <multi-facet child-type-uri="ka2.criteria.thema">Thema</multi-facet>

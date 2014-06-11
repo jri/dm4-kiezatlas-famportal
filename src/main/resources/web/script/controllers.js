@@ -51,10 +51,8 @@ angular.module("famportal").controller("editorialController", function($scope, $
         famportalService.getFacettedTopic(geoObjectId, FACET_TYPE_URIS, function(geoObject) {
             console.log("Detail geo object", geoObject)
             // trust user provided HTML
-            if (geoObject.composite['ka2.beschreibung']) {
-                geoObject.composite['ka2.beschreibung'].value =
-                    $sce.trustAsHtml(geoObject.composite['ka2.beschreibung'].value)
-            }
+            trustUserHTML(geoObject, "ka2.beschreibung")
+            trustUserHTML(geoObject, "ka2.oeffnungszeiten")
             //
             $scope.detailGeoObject = geoObject
         })
@@ -177,6 +175,12 @@ angular.module("famportal").controller("editorialController", function($scope, $
             })
         })
         return categoryIds
+    }
+
+    function trustUserHTML(geoObject, childTypeUri) {
+        if (geoObject.composite[childTypeUri]) {
+            geoObject.composite[childTypeUri].value = $sce.trustAsHtml(geoObject.composite[childTypeUri].value)
+        }
     }
 })
 .controller("categoriesController", function($scope, $http) {
