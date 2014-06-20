@@ -6,6 +6,10 @@ DeepaMehta 4 Kiezatlas - Familienportal
 Version History
 ---------------
 
+**0.6** -- upcoming
+
+* Compatible with DeepaMehta 4.4-SNAPSHOT
+
 **0.5** -- Jun 11, 2014
 
 * Redaktionswerkzeug:
@@ -56,4 +60,4 @@ Version History
 
 ------------
 Jörg Richter  
-Jun 11, 2014
+Jun 20, 2014
