@@ -170,11 +170,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
 
     @Override
-    @ConsumesService({
-        "de.kiezatlas.service.KiezatlasService",
-        "de.deepamehta.plugins.geomaps.service.GeomapsService",
-        "de.deepamehta.plugins.facets.service.FacetsService"
-    })
+    @ConsumesService({KiezatlasService.class, GeomapsService.class, FacetsService.class})
     public void serviceArrived(PluginService service) {
         if (service instanceof KiezatlasService) {
             kiezatlasService = (KiezatlasService) service;
