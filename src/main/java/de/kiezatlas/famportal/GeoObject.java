@@ -33,6 +33,14 @@ public class GeoObject implements JSONEnabled {
         }
     }
 
+    void setBezirk(String bezirk) {
+        try {
+            json.put("bezirk", bezirk);
+        } catch (Exception e) {
+            throw new RuntimeException("Constructing a GeoObject failed", e);
+        }
+    }
+
     void setGeoCoordinate(GeoCoordinate geoCoord) {
         try {
             JSONObject geolocation = new JSONObject();

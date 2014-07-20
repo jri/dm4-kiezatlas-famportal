@@ -214,10 +214,19 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         GeoObject geoObject = new GeoObject();
         //
         geoObject.setName(geoObjectTopic.getSimpleValue().toString());
+        geoObject.setBezirk(bezirk(geoObjectTopic));
         geoObject.setGeoCoordinate(geoCoordinate(geoObjectTopic));
         geoObject.setLink(link(geoObjectTopic));
         //
         return geoObject;
+    }
+
+    private String bezirk(Topic geoObjectTopic) {
+        Topic bezirk = getBezirkFacet(geoObjectTopic);
+        if (bezirk == null) {
+            throw new RuntimeException("No Bezirk is assigned");
+        }
+        return bezirk.getSimpleValue().toString();
     }
 
     private GeoCoordinate geoCoordinate(Topic geoObjectTopic) {
@@ -238,8 +247,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         if (bezirksregion != null) {
             ka1MapAlias = uriPostfix(bezirksregion.getUri(), KA2_BEZIRKSREGION_URI_PREFIX, "Bezirksregion");
         } else {
-            // fallback to Bezirksgesamtkarte when Bezirksregion is unknown
-            Topic bezirk = facetsService.getFacet(geoObjectTopic, "ka2.bezirk.facet");
+            // Fallback: link to Bezirksgesamtkarte when Bezirksregion is unknown
+            Topic bezirk = getBezirkFacet(geoObjectTopic);  // ### TODO: avoid fetching Bezirk twice, see bezirk()
             if (bezirk != null) {
                 ka1MapAlias = uriPostfix(bezirk.getUri(), KA2_BEZIRK_URI_PREFIX, "Bezirk");
             } else {
@@ -257,6 +266,13 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         }
         //
         return uri.substring(uriPrefix.length());
+    }
+
+    /**
+     * Returns the Bezirk facet of the given Geo Object, or <code>null</code> if no Bezirk is assigned.
+     */
+    private Topic getBezirkFacet(Topic geoObjectTopic) {
+        return facetsService.getFacet(geoObjectTopic, "ka2.bezirk.facet");
     }
 
     // --- Update Famportal Category facet ---

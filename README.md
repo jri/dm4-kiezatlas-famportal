@@ -8,6 +8,7 @@ Version History
 
 **0.6** -- upcoming
 
+* Retrieval API: include "bezirk" information in Kiezatlas objects.
 * Compatible with DeepaMehta 4.4-SNAPSHOT
 
 **0.5** -- Jun 11, 2014
@@ -60,4 +61,4 @@ Version History
 
 ------------
 Jörg Richter  
-Jun 20, 2014
+Jul 20, 2014
