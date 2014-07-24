@@ -82,7 +82,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     @GET
     @Path("/geoobject")
     @Override
-    public List<GeoObject> getGeoObjects(@QueryParam("category") List<CategorySet> categorySets) {
+    public List<GeoObject> getGeoObjects(@QueryParam("category") List<CategorySet> categorySets,
+                                         @QueryParam("proximity") ProximityFilter proximityFilter) {
         try {
             if (categorySets.size() > 1) {
                 throw new RuntimeException("Queries with more than 1 \"category\" parameter not yet supported");
@@ -97,7 +98,16 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
                 long catId = categoryTopic(categoryXmlId).getId();
                 for (Topic geoObject : kiezatlasService.getGeoObjectsByCategory(catId)) {
                     try {
-                        geoObject.loadChildTopics("dm4.contacts.address");  // ### TODO: do NOT fetch address's childs
+                        geoObject.loadChildTopics("dm4.contacts.address");  // ### TODO: avoid fetching address's childs
+                        // apply proximity filter
+                        if (proximityFilter != null) {
+                            GeoCoordinate geoCoord = geoCoordinate(geoObject);  // ### TODO: avoid fetching coords twice
+                            double distance = geomapsService.getDistance(geoCoord, proximityFilter.geoCoordinate);
+                            if (distance > proximityFilter.radius) {
+                                continue;
+                            }
+                        }
+                        //
                         geoObjects.add(createGeoObject(geoObject));
                     } catch (Exception e) {
                         logger.warning("### Excluding geo object " + geoObject.getId() + " (\"" +
