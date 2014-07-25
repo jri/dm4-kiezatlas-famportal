@@ -2841,7 +2841,7 @@
                                     "uri":      "famportal.category-c8bc4e13-1c82-4694-b82b-5702ab66cd76-de_DE-1",
                                     "type_uri": "famportal.category",
                                     "composite": {
-                                        "famportal.category.name": "Fachkr\u00e4fte für Familien",
+                                        "famportal.category.name": "Fachkr\u00e4fte f\u00fcr Familien",
                                         "famportal.category.order": 50,
                                         "famportal.category": [
                                             {
