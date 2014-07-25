@@ -96,22 +96,21 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
             List<GeoObject> geoObjects = new ArrayList();
             for (String categoryXmlId : categorySet) {
                 long catId = categoryTopic(categoryXmlId).getId();
-                for (Topic geoObject : kiezatlasService.getGeoObjectsByCategory(catId)) {
+                for (Topic geoObjectTopic : kiezatlasService.getGeoObjectsByCategory(catId)) {
                     try {
-                        geoObject.loadChildTopics("dm4.contacts.address");  // ### TODO: avoid fetching address's childs
                         // apply proximity filter
                         if (proximityFilter != null) {
-                            GeoCoordinate geoCoord = geoCoordinate(geoObject);  // ### TODO: avoid fetching coords twice
+                            GeoCoordinate geoCoord = geoCoordinate(geoObjectTopic);  // ### TODO: avoid fetching coords twice
                             double distance = geomapsService.getDistance(geoCoord, proximityFilter.geoCoordinate);
                             if (distance > proximityFilter.radius) {
                                 continue;
                             }
                         }
                         //
-                        geoObjects.add(createGeoObject(geoObject));
+                        geoObjects.add(createGeoObject(geoObjectTopic));
                     } catch (Exception e) {
-                        logger.warning("### Excluding geo object " + geoObject.getId() + " (\"" +
-                            geoObject.getSimpleValue() + "\") from result (" + e + ")");
+                        logger.warning("### Excluding geo object " + geoObjectTopic.getId() + " (\"" +
+                            geoObjectTopic.getSimpleValue() + "\") from result (" + e + ")");
                     }
                 }
             }
