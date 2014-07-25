@@ -98,16 +98,16 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
                 long catId = categoryTopic(categoryXmlId).getId();
                 for (Topic geoObjectTopic : kiezatlasService.getGeoObjectsByCategory(catId)) {
                     try {
+                        GeoCoordinate geoCoord = geoCoordinate(geoObjectTopic);
                         // apply proximity filter
                         if (proximityFilter != null) {
-                            GeoCoordinate geoCoord = geoCoordinate(geoObjectTopic);  // ### TODO: avoid fetching coords twice
                             double distance = geomapsService.getDistance(geoCoord, proximityFilter.geoCoordinate);
                             if (distance > proximityFilter.radius) {
                                 continue;
                             }
                         }
-                        //
-                        geoObjects.add(createGeoObject(geoObjectTopic));
+                        // add geo object to result
+                        geoObjects.add(createGeoObject(geoObjectTopic, geoCoord));
                     } catch (Exception e) {
                         logger.warning("### Excluding geo object " + geoObjectTopic.getId() + " (\"" +
                             geoObjectTopic.getSimpleValue() + "\") from result (" + e + ")");
@@ -217,14 +217,26 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         return cat;
     }
 
+    private GeoCoordinate geoCoordinate(Topic geoObjectTopic) {
+        Topic address = geoObjectTopic.getCompositeValue().getTopic("dm4.contacts.address");
+        GeoCoordinate geoCoord = geomapsService.getGeoCoordinate(address);
+        if (geoCoord == null) {
+            throw new RuntimeException("Geo coordinate is unknown");
+        }
+        return geoCoord;
+    }
+
     // --- Create result GeoObject ---
 
-    private GeoObject createGeoObject(Topic geoObjectTopic) {
+    /**
+     * @param   geoCoord    the geo coordinate already looked-up.
+     */
+    private GeoObject createGeoObject(Topic geoObjectTopic, GeoCoordinate geoCoord) {
         GeoObject geoObject = new GeoObject();
         //
         geoObject.setName(geoObjectTopic.getSimpleValue().toString());
         geoObject.setBezirk(bezirk(geoObjectTopic));
-        geoObject.setGeoCoordinate(geoCoordinate(geoObjectTopic));
+        geoObject.setGeoCoordinate(geoCoord);
         geoObject.setLink(link(geoObjectTopic));
         //
         return geoObject;
@@ -236,15 +248,6 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
             throw new RuntimeException("No Bezirk is assigned");
         }
         return bezirk.getSimpleValue().toString();
-    }
-
-    private GeoCoordinate geoCoordinate(Topic geoObjectTopic) {
-        Topic address = geoObjectTopic.getCompositeValue().getTopic("dm4.contacts.address");
-        GeoCoordinate geoCoord = geomapsService.getGeoCoordinate(address);
-        if (geoCoord == null) {
-            throw new RuntimeException("Geo coordinate is unknown");
-        }
-        return geoCoord;
     }
 
     private String link(Topic geoObjectTopic) {
