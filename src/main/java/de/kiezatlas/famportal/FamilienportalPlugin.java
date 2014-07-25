@@ -85,8 +85,10 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     public List<GeoObject> getGeoObjects(@QueryParam("category") List<CategorySet> categorySets,
                                          @QueryParam("proximity") ProximityFilter proximityFilter) {
         try {
-            if (categorySets.size() > 1) {
-                throw new RuntimeException("Queries with more than 1 \"category\" parameter not yet supported");
+            if (categorySets.size() == 0) {
+                throw new RuntimeException("Missing the \"category\" parameter in request");
+            } else if (categorySets.size() > 1) {
+                throw new RuntimeException("Requests with more than 1 \"category\" parameter not yet supported");
             }
             CategorySet categorySet = categorySets.get(0);
             if (categorySet.size() > 1) {
@@ -229,28 +231,36 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
     // --- Create result GeoObject ---
 
     /**
-     * @param   geoCoord    the geo coordinate already looked-up.
+     * @param   geoCoord    the geo coordinate already looked up.
      */
     private GeoObject createGeoObject(Topic geoObjectTopic, GeoCoordinate geoCoord) {
         GeoObject geoObject = new GeoObject();
         //
+        Topic bezirk = bezirk(geoObjectTopic);
         geoObject.setName(geoObjectTopic.getSimpleValue().toString());
-        geoObject.setBezirk(bezirk(geoObjectTopic));
+        geoObject.setBezirk(bezirk.getSimpleValue().toString());
         geoObject.setGeoCoordinate(geoCoord);
-        geoObject.setLink(link(geoObjectTopic));
+        geoObject.setLink(link(geoObjectTopic, bezirk));
         //
         return geoObject;
     }
 
-    private String bezirk(Topic geoObjectTopic) {
-        Topic bezirk = getBezirkFacet(geoObjectTopic);
+    /**
+     * Returns the Bezirk topic assigned to the given Geo Object.
+     * If no Bezirk topic is assigned an exception is thrown.
+     */
+    private Topic bezirk(Topic geoObjectTopic) {
+        Topic bezirk = facetsService.getFacet(geoObjectTopic, "ka2.bezirk.facet");
         if (bezirk == null) {
             throw new RuntimeException("No Bezirk is assigned");
         }
-        return bezirk.getSimpleValue().toString();
+        return bezirk;
     }
 
-    private String link(Topic geoObjectTopic) {
+    /**
+     * @param   bezirk      the Bezirk topic already looked up. Not null.
+     */
+    private String link(Topic geoObjectTopic, Topic bezirk) {
         String ka1TopicId, ka1MapAlias;
         //
         ka1TopicId = uriPostfix(geoObjectTopic.getUri(), KA2_GEO_OBJECT_URI_PREFIX, "geo object");
@@ -260,12 +270,7 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
             ka1MapAlias = uriPostfix(bezirksregion.getUri(), KA2_BEZIRKSREGION_URI_PREFIX, "Bezirksregion");
         } else {
             // Fallback: link to Bezirksgesamtkarte when Bezirksregion is unknown
-            Topic bezirk = getBezirkFacet(geoObjectTopic);  // ### TODO: avoid fetching Bezirk twice, see bezirk()
-            if (bezirk != null) {
-                ka1MapAlias = uriPostfix(bezirk.getUri(), KA2_BEZIRK_URI_PREFIX, "Bezirk");
-            } else {
-                throw new RuntimeException("Neither a Bezirksregion nor a Bezirk is assigned");
-            }
+            ka1MapAlias = uriPostfix(bezirk.getUri(), KA2_BEZIRK_URI_PREFIX, "Bezirk");
         }
         //
         return String.format(KA1_MAP_URL, ka1MapAlias, ka1TopicId);
@@ -278,13 +283,6 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         }
         //
         return uri.substring(uriPrefix.length());
-    }
-
-    /**
-     * Returns the Bezirk facet of the given Geo Object, or <code>null</code> if no Bezirk is assigned.
-     */
-    private Topic getBezirkFacet(Topic geoObjectTopic) {
-        return facetsService.getFacet(geoObjectTopic, "ka2.bezirk.facet");
     }
 
     // --- Update Famportal Category facet ---
