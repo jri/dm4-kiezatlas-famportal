@@ -98,7 +98,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
             List<GeoObject> geoObjects = new ArrayList();
             for (String categoryXmlId : categorySet) {
                 long catId = categoryTopic(categoryXmlId).getId();
-                for (Topic geoObjectTopic : kiezatlasService.getGeoObjectsByCategory(catId)) {
+                for (Topic geoObjectTopic : kiezatlasService.getGeoObjectsByCategory(catId, false)) {
+                                                                                         // fetchComposite=false
                     try {
                         GeoCoordinate geoCoord = geoCoordinate(geoObjectTopic);
                         // apply proximity filter
@@ -167,7 +168,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
         GeoObjectCount count = new GeoObjectCount();
         for (Topic famportalCategory : dms.getTopics(FAMPORTAL_CATEGORY_URI, false, 0).getItems()) {
             long famCatId = famportalCategory.getId();
-            count.addCount(famCatId, kiezatlasService.getGeoObjectsByCategory(famCatId).size());
+            count.addCount(famCatId, kiezatlasService.getGeoObjectsByCategory(famCatId, false).size());
+                                                                                     // fetchComposite=false
         }
         return count;
     }
@@ -307,7 +309,8 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     private void updateFacetByCategories(List<Long> kiezatlasCategoryIds, FacetValue value) {
         for (long catId : kiezatlasCategoryIds) {
-            List<RelatedTopic> geoObjects = kiezatlasService.getGeoObjectsByCategory(catId);
+            List<RelatedTopic> geoObjects = kiezatlasService.getGeoObjectsByCategory(catId, false);
+                                                                                         // fetchComposite=false
             for (Topic geoObject : geoObjects) {
                 facetsService.updateFacet(geoObject, FAMPORTAL_CATEGORY_FACET_URI, value, null, new Directives());
                                                                                                 // clientState=null

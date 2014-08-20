@@ -2,7 +2,7 @@
     View Model
     ==========
 
-    detailGeoObject    - The Geo Object whose details are shown
+    detailGeoObject    - The Geo Object whose details are shown. Null if no details are shown.
 
     Left Column
     -----------
