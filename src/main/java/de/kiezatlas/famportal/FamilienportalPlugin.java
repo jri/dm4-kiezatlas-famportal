@@ -13,8 +13,7 @@ import de.deepamehta.core.Topic;
 import de.deepamehta.core.model.SimpleValue;
 import de.deepamehta.core.osgi.PluginActivator;
 import de.deepamehta.core.service.Directives;
-import de.deepamehta.core.service.PluginService;
-import de.deepamehta.core.service.annotation.ConsumesService;
+import de.deepamehta.core.service.Inject;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -61,9 +60,9 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
 
     // ---------------------------------------------------------------------------------------------- Instance Variables
 
-    private KiezatlasService kiezatlasService;
-    private GeomapsService geomapsService;
-    private FacetsService facetsService;
+    @Inject private KiezatlasService kiezatlasService;
+    @Inject private GeomapsService geomapsService;
+    @Inject private FacetsService facetsService;
 
     private Logger logger = Logger.getLogger(getClass().getName());
 
@@ -172,37 +171,6 @@ public class FamilienportalPlugin extends PluginActivator implements Familienpor
                                                                                      // fetchComposite=false
         }
         return count;
-    }
-
-
-
-    // ****************************
-    // *** Hook Implementations ***
-    // ****************************
-
-
-
-    @Override
-    @ConsumesService({KiezatlasService.class, GeomapsService.class, FacetsService.class})
-    public void serviceArrived(PluginService service) {
-        if (service instanceof KiezatlasService) {
-            kiezatlasService = (KiezatlasService) service;
-        } else if (service instanceof GeomapsService) {
-            geomapsService = (GeomapsService) service;
-        } else if (service instanceof FacetsService) {
-            facetsService = (FacetsService) service;
-        }
-    }
-
-    @Override
-    public void serviceGone(PluginService service) {
-        if (service == kiezatlasService) {
-            kiezatlasService = null;
-        } else if (service == geomapsService) {
-            geomapsService = null;
-        } else if (service == facetsService) {
-            facetsService = null;
-        }
     }
 
 
